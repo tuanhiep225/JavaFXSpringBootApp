@@ -23,9 +23,9 @@
 
 <VBox fx:id="content_area" prefHeight="800.0" prefWidth="900.0" stylesheets="@../styles/stylehseet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ContentAreaController">
     <children>
-      <HBox fx:id="menubar" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="900.0" style="-fx-background-color: #fff; -fx-border-color: #cccccc; -fx-border-width: 0px 0px 1px 0px;" stylesheets="@../css/stylehseet.css">
+      <HBox fx:id="menubar" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="900.0" styleClass="title-main" stylesheets="@../styles/stylehseet.css">
          <children>
-            <JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#open_sidebar" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="menu-bar-btns">
+            <JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#open_sidebar" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="title-main">
                <graphic>
                   <FontAwesomeIcon iconName="TH_LIST" size="2em" styleClass="menu-bar-btns-icon" />
                </graphic>
@@ -51,85 +51,39 @@
       </HBox>
       <HBox alignment="CENTER" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <children>
-            <VBox prefHeight="660.0" prefWidth="600.0" style="-fx-background-color: blue;" HBox.hgrow="ALWAYS">
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="525.0" styleClass="title-main">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="76.0" prefWidth="327.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <graphic>
-                                    <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="ARROW_LEFT" size="2em" text="">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </FontAwesomeIcon>
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <graphic>
-                                    <FontAwesomeIcon fill="WHITE" iconName="ARROW_RIGHT" size="2em" />
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
-                                 <graphic>
-                                    <FontAwesomeIcon fill="WHITE" iconName="REFRESH" size="2em" text="" />
-                                 </graphic>
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
-                                 <graphic>
-                                    <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="TRASH" size="2em">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </FontAwesomeIcon>
-                                 </graphic>
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                     </children></HBox>
-                  <TableView prefHeight="533.0" prefWidth="525.0" VBox.vgrow="ALWAYS">
-                    <columns>
-                      <TableColumn prefWidth="114.0" text="STT" />
-                      <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="410.0" text="URL" />
-                    </columns>
-                  </TableView>
-                  <HBox prefHeight="276.0" prefWidth="525.0" style="-fx-background-color: yellow;" VBox.vgrow="NEVER" />
-               </children>
-            </VBox>
             <VBox prefWidth="450.0">
                <children>
                   <WebView fx:id="webView" prefHeight="681.0" prefWidth="375.0" />
                   <HBox alignment="CENTER" prefHeight="57.0" prefWidth="375.0" styleClass="title-main" VBox.vgrow="ALWAYS">
                      <children>
+                        <JFXButton fx:id="btnPrev" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPrev" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="ARROW_LEFT" size="2em" text="">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </FontAwesomeIcon>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onNext" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" iconName="ARROW_RIGHT" size="2em" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnReload" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onReload" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" iconName="REFRESH" size="2em" text="" />
+                           </graphic>
+                        </JFXButton>
                         <JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="HEART" size="2em" text="" />
@@ -138,7 +92,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+                        <JFXButton fx:id="btnDownload" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onDownload" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" iconName="DOWNLOAD" size="2em" />
                            </graphic>
@@ -146,6 +100,15 @@
                      </children>
                   </HBox>
                </children>
+            </VBox>
+            <VBox prefHeight="660.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="405.0" prefWidth="525.0" styleClass="title-main" />
+                  <HBox prefHeight="276.0" prefWidth="525.0" styleClass="title-main" VBox.vgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets left="2.0" />
+               </padding>
             </VBox>
          </children>
       </HBox>

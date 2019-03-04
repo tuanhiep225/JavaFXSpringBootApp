@@ -3,10 +3,13 @@
  */
 package app.tiktok.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * @author tuanhiep225
@@ -15,7 +18,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class ChallengeInfo {
 	/** The user who created the challenge, or an empty object */
 	Object author;

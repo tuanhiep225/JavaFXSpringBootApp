@@ -45,4 +45,6 @@ public class Video {
 
 	/** The video's width, e.g. 540 */
 	Integer width;
+	
+	Media play_addr;
 }

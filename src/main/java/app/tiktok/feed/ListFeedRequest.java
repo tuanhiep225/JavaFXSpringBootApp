@@ -9,6 +9,7 @@ import app.tiktok.type.PullType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * @author tuanhiep225
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class ListFeedRequest extends ListRequestParams {
 	/** The type of feed to load */
 	FeedType type;
