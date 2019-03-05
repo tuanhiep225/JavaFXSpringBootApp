@@ -73,6 +73,9 @@ public class ContentAreaController implements Initializable {
 
     @FXML
     private JFXButton btnDownload;
+    
+    @FXML
+    private HBox hbox;
 
 	/**
 	 * Initializes the controller class.
@@ -90,6 +93,9 @@ public class ContentAreaController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		CustomControl customControl = new CustomControl();
+		hbox.getChildren().add(customControl);
 		
 
 	}

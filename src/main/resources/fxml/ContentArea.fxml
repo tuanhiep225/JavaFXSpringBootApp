@@ -103,7 +103,7 @@
             </VBox>
             <VBox prefHeight="660.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox prefHeight="405.0" prefWidth="525.0" styleClass="title-main" />
+                  <HBox fx:id="hbox" prefHeight="405.0" prefWidth="525.0" styleClass="title-main" />
                   <HBox prefHeight="276.0" prefWidth="525.0" styleClass="title-main" VBox.vgrow="ALWAYS" />
                </children>
                <padding>
