@@ -27,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -74,8 +75,10 @@ public class ContentAreaController implements Initializable {
     @FXML
     private JFXButton btnDownload;
     
+
     @FXML
-    private HBox hbox;
+    private AnchorPane content;
+    
 
 	/**
 	 * Initializes the controller class.
@@ -94,9 +97,26 @@ public class ContentAreaController implements Initializable {
 			e.printStackTrace();
 		}
 		
-		CustomControl customControl = new CustomControl();
-		hbox.getChildren().add(customControl);
+//		 content.setContent(new CustomControl());
+//		 content.setContent(new CustomControl());
+//		 content.setContent(new CustomControl());
+//		 content.setContent(new CustomControl());
+//		 content.setContent(new CustomControl());
+//		 content.setContent(new CustomControl());
+//		 content.setContent(new CustomControl());
+//		 content.setContent(new CustomControl());
 		
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+		content.getChildren().add(new CustomControl());
+//		
 
 	}
 

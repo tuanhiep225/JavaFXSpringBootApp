@@ -1,3 +1,11 @@
+* {
+    -fx-primary : #2A2E37;
+    -fx-secondary : #FFFF8D;
+    -fx-primarytext : #B2B2B2;
+    -fx-blue: #1976D2;
+    -fx-red: #FF0000;
+    -fx-color-1:#1976D2;
+}
 .sidebar{
     -fx-background-color: rgb(58,69,88);
 }
@@ -84,4 +92,8 @@
 }
 .title-main{
 	-fx-background-color: rgb(79,94,119);
+}
+
+.tab-header-background{
+    -fx-background-color: -fx-primary;
 }
