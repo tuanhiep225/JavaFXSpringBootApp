@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,14 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 
 import app.config.SpringFXMLLoader;
 import app.config.StageManager;
 import app.tiktok.feed.ListFeedRequest;
 import app.tiktok.feed.ListFeedResponse;
+import app.tiktok.search.UserSearchRequest;
+import app.tiktok.search.UserSearchResponse;
 import app.tiktok.type.FeedType;
 import app.tiktok.type.PullType;
 import app.utils.ITiktokAPI;
@@ -27,7 +31,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -63,6 +68,8 @@ public class ContentAreaController implements Initializable {
     
     ListFeedResponse listFeedResponse = null;
     
+    UserSearchResponse userSearchResponse=  null;
+    
     int videoIndex = 0;
     
     @FXML
@@ -77,8 +84,11 @@ public class ContentAreaController implements Initializable {
     
 
     @FXML
-    private AnchorPane content;
+    private JFXTextField textSearch;
     
+
+    @FXML
+    private VBox tab_content_nguoidung;
 
 	/**
 	 * Initializes the controller class.
@@ -90,6 +100,7 @@ public class ContentAreaController implements Initializable {
 		
 		try {
 		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build());
+//		userSearchResponse =	tiktokAPI.searchUsers(UserSearchRequest.builder().type(0).cursor(0).count("6").keyword("tuanhiep").build());
 		WebEngine engin = webView.getEngine();
 		engin.load(listFeedResponse.getAweme_list().get(videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
 		} catch (Exception e) {
@@ -97,27 +108,17 @@ public class ContentAreaController implements Initializable {
 			e.printStackTrace();
 		}
 		
-//		 content.setContent(new CustomControl());
-//		 content.setContent(new CustomControl());
-//		 content.setContent(new CustomControl());
-//		 content.setContent(new CustomControl());
-//		 content.setContent(new CustomControl());
-//		 content.setContent(new CustomControl());
-//		 content.setContent(new CustomControl());
-//		 content.setContent(new CustomControl());
+//		userSearchResponse.getUser_list().forEach(user->{
+//			String image = user.getUser_info().getAvatar_thumb().getUrl_list().get(0);
+//			String name = user.getUser_info().getNickname();
+//			String tiktokId = user.getUser_info().getUnique_id();
+//			CustomControl custom = new CustomControl();
+//			custom.setImageView(image);
+//			custom.setName(name);
+//			custom.setIdTiktok(tiktokId);
+//			tab_content_nguoidung.getChildren().add(custom);
+//		});
 		
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-		content.getChildren().add(new CustomControl());
-//		
-
 	}
 
 	@FXML
@@ -210,6 +211,34 @@ public class ContentAreaController implements Initializable {
     		System.out.println("not ok");
     	}
 
+    }
+    
+    
+    @FXML
+    void onKeyPressed(KeyEvent ke) {
+        if (ke.getCode().equals(KeyCode.ENTER))
+        {
+        	
+    		try {
+				userSearchResponse =	tiktokAPI.searchUsers(UserSearchRequest.builder().type(1).cursor(0).count("10").keyword("boss.sen").build());
+				if(!tab_content_nguoidung.getChildren().isEmpty()) {
+					tab_content_nguoidung.getChildren().setAll(new ArrayList<Node>());
+				}
+        		userSearchResponse.getUser_list().forEach(user->{
+        			String image = user.getUser_info().getAvatar_thumb().getUrl_list().get(0);
+        			String name = user.getUser_info().getNickname();
+        			String tiktokId = user.getUser_info().getUnique_id();
+        			CustomControl custom = new CustomControl();
+        			custom.setImageView(image);
+        			custom.setName(name);
+        			custom.setIdTiktok(tiktokId);
+        			tab_content_nguoidung.getChildren().add(custom);
+        		});
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
     }
     
 

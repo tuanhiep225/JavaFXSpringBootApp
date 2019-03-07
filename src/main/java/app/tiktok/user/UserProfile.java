@@ -6,7 +6,6 @@ package app.tiktok.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import app.tiktok.request.Media;
-import app.tiktok.user.CommonUserDetails.CommonUserDetailsBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

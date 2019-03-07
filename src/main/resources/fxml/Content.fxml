@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<VBox fx:id="content_area" prefHeight="800.0" prefWidth="900.0" stylesheets="@../styles/stylehseet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ContentAreaController">
+	<children>
+		<HBox fx:id="menubar" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="900.0" styleClass="title-main" stylesheets="@../styles/stylehseet.css">
+			<children>
+				<JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#open_sidebar" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE" styleClass="title-main">
+					<graphic>
+						<FontAwesomeIcon iconName="TH_LIST" size="2em" styleClass="menu-bar-btns-icon" />
+					</graphic>
+				</JFXButton>
+				<HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+					<children>
+						<JFXButton fx:id="btnMinimize" alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimize" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+							<graphic>
+								<FontAwesomeIcon iconName="MINUS" size="2em" styleClass="menu-bar-btns-icon" />
+							</graphic>
+						</JFXButton>
+						<JFXButton fx:id="btnClose" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#close" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+							<graphic>
+								<FontAwesomeIcon iconName="TIMES" size="2em" styleClass="menu-bar-btns-icon" />
+							</graphic>
+						</JFXButton>
+					</children>
+				</HBox>
+			</children>
+			<VBox.margin>
+				<Insets bottom="2.0" />
+			</VBox.margin>
+		</HBox>
+		<HBox alignment="CENTER" prefWidth="900.0" VBox.vgrow="ALWAYS">
+			<children>
+				<VBox prefWidth="450.0">
+					<children>
+						<WebView fx:id="webView" prefHeight="681.0" prefWidth="375.0" />
+						<HBox alignment="CENTER" prefHeight="57.0" prefWidth="375.0" styleClass="title-main" VBox.vgrow="ALWAYS">
+							<children>
+								<JFXButton fx:id="btnPrev" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPrev" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<graphic>
+										<FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="ARROW_LEFT" size="2em" text="">
+											<font>
+												<Font size="20.0" />
+											</font>
+										</FontAwesomeIcon>
+									</graphic>
+								</JFXButton>
+								<JFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onNext" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<graphic>
+										<FontAwesomeIcon fill="WHITE" iconName="ARROW_RIGHT" size="2em" />
+									</graphic>
+								</JFXButton>
+								<JFXButton fx:id="btnReload" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onReload" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<graphic>
+										<FontAwesomeIcon fill="WHITE" iconName="REFRESH" size="2em" text="" />
+									</graphic>
+								</JFXButton>
+								<JFXButton alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+									<graphic>
+										<FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="HEART" size="2em" text="" />
+									</graphic>
+									<HBox.margin>
+										<Insets right="10.0" />
+									</HBox.margin>
+								</JFXButton>
+								<JFXButton fx:id="btnDownload" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onDownload" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+									<graphic>
+										<FontAwesomeIcon fill="WHITE" iconName="DOWNLOAD" size="2em" />
+									</graphic>
+								</JFXButton>
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+				<VBox prefWidth="600.0" HBox.hgrow="ALWAYS">
+					<children>
+						<HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="523.0" style="-fx-border-width: 2px; -fx-background-color:  #2A2E37;">
+							<children>
+								<JFXTextField fx:id="textSearch" focusColor="WHITE" labelFloat="true" maxWidth="1.7976931348623157E308" onKeyPressed="#onKeyPressed" prefHeight="31.0" prefWidth="494.0" styleClass="jfx-unfocus-color" unFocusColor="#2a2e37" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="13.0" />
+                           </font></JFXTextField>
+								<FontAwesomeIcon fill="#546f9a" iconName="SEARCH" size="2em" wrappingWidth="29.0" />
+							</children>
+							<VBox.margin>
+								<Insets bottom="2.0" />
+							</VBox.margin>
+						</HBox>
+						<JFXTabPane styleClass="tab-header-background" VBox.vgrow="ALWAYS">
+							<VBox.margin>
+								<Insets />
+							</VBox.margin>
+							<tabs>
+								<Tab text="Người dùng">
+									<content>
+										<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="8.0" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+                                       <content>
+                                          <VBox fx:id="tab_content_nguoidung" prefHeight="601.0" prefWidth="519.0">
+                                             <children>
+                                                
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                                 </children></AnchorPane>
+									</content>
+								</Tab>
+								<Tab text="Nhạc nền">
+									<content>
+										<AnchorPane minHeight="0.0" minWidth="0.0" />
+									</content>
+								</Tab>
+								<Tab text="Hashtag">
+									<content>
+										<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+									</content>
+								</Tab>
+							</tabs>
+						</JFXTabPane>
+						<HBox prefHeight="61.0" prefWidth="523.0" styleClass="title-main" />
+					</children>
+					<padding>
+						<Insets left="2.0" />
+					</padding>
+				</VBox>
+			</children>
+		</HBox>
+	</children>
+</VBox>

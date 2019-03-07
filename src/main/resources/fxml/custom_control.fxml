@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -7,12 +9,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" style="-fx-background-color: #c8d9ea;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" style="-fx-background-color: #2A2E37;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-      <VBox prefHeight="70.0" prefWidth="500.0" style="-fx-background-color: red;" HBox.hgrow="ALWAYS" />
-      <HBox prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: blue;" />
+      <ImageView fx:id="imageView" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox prefHeight="70.0" prefWidth="398.0" style="-fx-background-color: #373d49;" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="lblName" prefHeight="33.0" prefWidth="352.0" text="Nguyễn Văn Hưng" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="36.0" prefWidth="378.0">
+               <children>
+                  <Label prefHeight="33.0" prefWidth="56.0" text="ID TikTok: " textFill="WHITE" />
+                  <Label fx:id="tblIdTiktok" prefHeight="33.0" prefWidth="126.0" text="665255500454405" textFill="WHITE" />
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children></VBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #373d49;">
+         <children>
+            <JFXButton prefHeight="25.0" prefWidth="60.0">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="EYE" size="1.5em" wrappingWidth="1.0" />
+               </graphic>
+            </JFXButton>
+            <JFXButton prefHeight="25.0" prefWidth="60.0">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" iconName="DOWNLOAD" size="1.5em" wrappingWidth="1.0" />
+               </graphic>
+            </JFXButton>
+         </children></HBox>
    </children>
    <padding>
       <Insets bottom="10.0" top="10.0" />

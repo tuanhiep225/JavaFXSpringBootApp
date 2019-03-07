@@ -43,7 +43,7 @@ public enum FxmlView {
 
 		@Override
 		public String getFxmlFile() {
-			return "/fxml/ContentArea.fxml";
+			return "/fxml/Content.fxml";
 		}
 	};
 

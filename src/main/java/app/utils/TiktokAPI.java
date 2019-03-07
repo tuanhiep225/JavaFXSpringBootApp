@@ -52,6 +52,7 @@ import app.tiktok.user.UserProfileResponse;
 public class TiktokAPI implements ITiktokAPI{
 	private static Client client;
 	private final String baseUrl = "https://api-h2.tiktokv.com/%1$s";
+	private final String baseUrlNew = "https://api21-h2.tiktokv.com/%1$s";
 	
 	@Override
 	public LoginResponse login(LoginRequest request) throws Exception {
@@ -255,7 +256,7 @@ public class TiktokAPI implements ITiktokAPI{
 	public static void main (String[] agrs) throws Exception {
 		TiktokAPI a = new TiktokAPI();
 //		 HashtagSearchResponse us = a.searchHashtags(SearchRequest.builder().count("10").cursor(0).keyword("boss.sen").build());
-		ListPostsResponse rs= a.listPosts(ListPostsRequest.builder().user_id("6580354890337320962").build());
+		UserSearchResponse rs= a.searchUsers(UserSearchRequest.builder().type(1).count("10").cursor(0).keyword("boss.sen").build());
 		System.out.println("");
 	}
 

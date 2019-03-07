@@ -8,7 +8,6 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import app.tiktok.request.BaseResponseData;
-import app.tiktok.request.BaseResponseData.BaseResponseDataBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
