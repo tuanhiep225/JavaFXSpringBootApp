@@ -117,7 +117,7 @@
 								<Insets bottom="2.0" />
 							</VBox.margin>
 						</HBox>
-						<JFXTabPane styleClass="tab-header-background" VBox.vgrow="ALWAYS">
+						<JFXTabPane fx:id="tabContent" styleClass="tab-header-background" VBox.vgrow="ALWAYS">
 							<VBox.margin>
 								<Insets />
 							</VBox.margin>

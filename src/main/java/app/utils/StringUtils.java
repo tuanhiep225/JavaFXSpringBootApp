@@ -13,7 +13,7 @@ public class StringUtils {
 	
 	
 	
-	private static String encryptWithXor(String input) {
+	public static String encryptWithXor(String input) {
 		int key = 5; //Can be any chars, and any length array
 		byte[] inputBytes = input.getBytes();
 		byte[] outputBytes = new byte[inputBytes.length];
@@ -24,7 +24,7 @@ public class StringUtils {
 		return DatatypeConverter.printHexBinary(outputBytes).toLowerCase();
 	}
 	
-	private static String decryptWithXor(String input) {
+	public static String decryptWithXor(String input) {
 		int key = 5; //Can be any chars, and any length array
 		byte[] inputBytes = DatatypeConverter.parseHexBinary(input);
 		char[] outputBytes = new char[inputBytes.length];

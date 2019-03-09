@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 
 import app.config.SpringFXMLLoader;
@@ -63,6 +64,9 @@ public class ContentAreaController implements Initializable {
     @Autowired
     SpringFXMLLoader spingFXMLLoader;
     
+    @FXML
+    private JFXTabPane tabContent;
+    
     @Autowired
     ITiktokAPI tiktokAPI;
     
@@ -100,24 +104,13 @@ public class ContentAreaController implements Initializable {
 		
 		try {
 		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build());
-//		userSearchResponse =	tiktokAPI.searchUsers(UserSearchRequest.builder().type(0).cursor(0).count("6").keyword("tuanhiep").build());
 		WebEngine engin = webView.getEngine();
 		engin.load(listFeedResponse.getAweme_list().get(videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		userSearchResponse.getUser_list().forEach(user->{
-//			String image = user.getUser_info().getAvatar_thumb().getUrl_list().get(0);
-//			String name = user.getUser_info().getNickname();
-//			String tiktokId = user.getUser_info().getUnique_id();
-//			CustomControl custom = new CustomControl();
-//			custom.setImageView(image);
-//			custom.setName(name);
-//			custom.setIdTiktok(tiktokId);
-//			tab_content_nguoidung.getChildren().add(custom);
-//		});
+
 		
 	}
 
@@ -220,7 +213,7 @@ public class ContentAreaController implements Initializable {
         {
         	
     		try {
-				userSearchResponse =	tiktokAPI.searchUsers(UserSearchRequest.builder().type(1).cursor(0).count("10").keyword("boss.sen").build());
+				userSearchResponse =	tiktokAPI.searchUsers(UserSearchRequest.builder().type(1).cursor(0).count("10").keyword(textSearch.getText()).build());
 				if(!tab_content_nguoidung.getChildren().isEmpty()) {
 					tab_content_nguoidung.getChildren().setAll(new ArrayList<Node>());
 				}
@@ -239,6 +232,12 @@ public class ContentAreaController implements Initializable {
 				e.printStackTrace();
 			}
         }
+    }
+    
+    @FXML
+    void viewAllVideo(ActionEvent event) throws Exception {
+    	System.out.println("ok");
+
     }
     
 

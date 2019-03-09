@@ -31,7 +31,7 @@
          </children></VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #373d49;">
          <children>
-            <JFXButton prefHeight="25.0" prefWidth="60.0">
+            <JFXButton fx:id="btnViewAllVideo" onAction="#viewAllVideo" prefHeight="25.0" prefWidth="60.0">
                <graphic>
                   <FontAwesomeIcon fill="WHITE" iconName="EYE" size="1.5em" wrappingWidth="1.0" />
                </graphic>

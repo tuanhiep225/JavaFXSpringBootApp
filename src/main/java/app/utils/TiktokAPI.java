@@ -73,7 +73,9 @@ public class TiktokAPI implements ITiktokAPI{
 
 	@Override
 	public LoginResponse loginWithPhone(String phone, String password) throws Exception {
-		LoginRequest loginRequest = LoginRequest.builder().mobile(phone).password(password).build();
+		String passEncode = StringUtils.encryptWithXor(password);
+		String phoneEnCode =  StringUtils.encryptWithXor(phone);
+		LoginRequest loginRequest = LoginRequest.builder().mobile(phoneEnCode).password(passEncode).build();
 		
 		return login(loginRequest);
 	}
@@ -101,7 +103,9 @@ public class TiktokAPI implements ITiktokAPI{
 		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
+		  Response response = target.request().header("x-tt-token", "01abe5e241592779dbed405dc78524c9c6e642d868a074472f1ea199fd5d666c38f70c3d3a94c0ab803d17967975cf245d16")
+				  .header("user-agent", "com.ss.android.ugc.trill/466 (Linux; U; Android 7.1.1; vi_VN; CPH1723; Build/N6F26Q; Cronet/58.0.2991.0)")
+				  .header("sdk-version", "1").get();
 		return response.readEntity(UserSearchResponse.class);
 	}
 
@@ -257,6 +261,7 @@ public class TiktokAPI implements ITiktokAPI{
 		TiktokAPI a = new TiktokAPI();
 //		 HashtagSearchResponse us = a.searchHashtags(SearchRequest.builder().count("10").cursor(0).keyword("boss.sen").build());
 		UserSearchResponse rs= a.searchUsers(UserSearchRequest.builder().type(1).count("10").cursor(0).keyword("boss.sen").build());
+	//	LoginResponse b = a.loginWithPhone("+840984599264", "123456a@");
 		System.out.println("");
 	}
 

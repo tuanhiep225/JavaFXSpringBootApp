@@ -5,17 +5,24 @@ package app.controller;
 
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXButton;
+
+import app.utils.TiktokAPI;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * @author tuanhiep225
  *
  */
+
 public class CustomControl extends HBox {
     @FXML
     private Label tblIdTiktok;
@@ -26,11 +33,17 @@ public class CustomControl extends HBox {
     @FXML
     private ImageView imageView;
     
+    @FXML
+    private JFXButton btnViewAllVideo;
+    
+
+    private TiktokAPI tiktokAPI;
+
     public CustomControl() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/custom_control.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-
+        tiktokAPI = new TiktokAPI();
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
@@ -61,6 +74,15 @@ public class CustomControl extends HBox {
 	public void setImageView(String url) {
 		imageView.setImage(new Image(url));
 	}
+    
+    @FXML
+    void viewAllVideo(ActionEvent event) throws Exception {
+    	Scene scene = this.getScene();
+    	VBox node = (VBox) scene.lookup("#content_area");
+    	node.getChildren().get(0);
+    	System.out.println("name: "+ lblName.getText());
+
+    }
     
     
 }
