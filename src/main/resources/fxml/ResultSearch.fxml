@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root fx:id="searchResult" prefHeight="745.0" prefWidth="600.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="150.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="100.0" style="-fx-background-color: #2A2E37;">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="103.0">
+                     <children>
+                        <JFXButton prefHeight="48.0" prefWidth="25.0" textFill="#f8f8f8">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="ARROW_LEFT" size="2em" text="" wrappingWidth="26.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </FontAwesomeIcon>
+                           </graphic></JFXButton>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="90.0" prefWidth="90.0">
+                     <children>
+                        <ImageView fx:id="imgAvatar" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="100.0" prefWidth="231.0">
+                           <children>
+                              <Label fx:id="lblNameP" prefHeight="30.0" prefWidth="193.0" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="214.0">
+                                 <children>
+                                    <Label prefHeight="30.0" prefWidth="73.0" text="ID Tiktok:" textFill="#fffefe">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblTiktokId" prefHeight="21.0" prefWidth="135.0" textFill="WHITE">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXButton alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="92.0" style="-fx-background-color: red;" text="Theo dõi" textAlignment="RIGHT" textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" iconName="PLUS" size="1.5em" wrappingWidth="19.0" />
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefWidth="600.0" style="-fx-background-color: #2A2E37;" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="28.2k Trái tim" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="149 Following" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="9.6k Người theo dõi" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="1.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="600.0" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</fx:root>

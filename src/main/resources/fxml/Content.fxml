@@ -51,7 +51,7 @@
 				<Insets bottom="2.0" />
 			</VBox.margin>
 		</HBox>
-		<HBox alignment="CENTER" prefWidth="900.0" VBox.vgrow="ALWAYS">
+		<HBox fx:id="hboxMainContent" prefWidth="900.0" VBox.vgrow="ALWAYS">
 			<children>
 				<VBox prefWidth="450.0">
 					<children>
@@ -102,59 +102,6 @@
 							</children>
 						</HBox>
 					</children>
-				</VBox>
-				<VBox prefWidth="600.0" HBox.hgrow="ALWAYS">
-					<children>
-						<HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="523.0" style="-fx-border-width: 2px; -fx-background-color:  #2A2E37;">
-							<children>
-								<JFXTextField fx:id="textSearch" focusColor="WHITE" labelFloat="true" maxWidth="1.7976931348623157E308" onKeyPressed="#onKeyPressed" prefHeight="31.0" prefWidth="494.0" styleClass="jfx-unfocus-color" unFocusColor="#2a2e37" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font size="13.0" />
-                           </font></JFXTextField>
-								<FontAwesomeIcon fill="#546f9a" iconName="SEARCH" size="2em" wrappingWidth="29.0" />
-							</children>
-							<VBox.margin>
-								<Insets bottom="2.0" />
-							</VBox.margin>
-						</HBox>
-						<JFXTabPane fx:id="tabContent" styleClass="tab-header-background" VBox.vgrow="ALWAYS">
-							<VBox.margin>
-								<Insets />
-							</VBox.margin>
-							<tabs>
-								<Tab text="Người dùng">
-									<content>
-										<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="8.0" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
-                                       <content>
-                                          <VBox fx:id="tab_content_nguoidung" prefHeight="601.0" prefWidth="519.0">
-                                             <children>
-                                                
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </ScrollPane>
-                                 </children></AnchorPane>
-									</content>
-								</Tab>
-								<Tab text="Nhạc nền">
-									<content>
-										<AnchorPane minHeight="0.0" minWidth="0.0" />
-									</content>
-								</Tab>
-								<Tab text="Hashtag">
-									<content>
-										<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-									</content>
-								</Tab>
-							</tabs>
-						</JFXTabPane>
-						<HBox prefHeight="61.0" prefWidth="523.0" styleClass="title-main" />
-					</children>
-					<padding>
-						<Insets left="2.0" />
-					</padding>
 				</VBox>
 			</children>
 		</HBox>

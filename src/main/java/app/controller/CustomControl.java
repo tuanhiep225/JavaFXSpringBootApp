@@ -5,7 +5,10 @@ package app.controller;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Controller;
+
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTabPane;
 
 import app.utils.TiktokAPI;
 import javafx.event.ActionEvent;
@@ -22,7 +25,7 @@ import javafx.scene.layout.VBox;
  * @author tuanhiep225
  *
  */
-
+@Controller
 public class CustomControl extends HBox {
     @FXML
     private Label tblIdTiktok;
@@ -77,9 +80,12 @@ public class CustomControl extends HBox {
     
     @FXML
     void viewAllVideo(ActionEvent event) throws Exception {
+    	
     	Scene scene = this.getScene();
-    	VBox node = (VBox) scene.lookup("#content_area");
-    	node.getChildren().get(0);
+    	VBox node = (VBox) scene.lookup("#contentSearch");
+    	node.setVisible(false);
+    	HBox node1 = (HBox) scene.lookup("#hboxMainContent");
+    	node1.getChildren().add(new ResutlSearchController(lblName.getText(),imageView.getImage(),tblIdTiktok.getText()));
     	System.out.println("name: "+ lblName.getText());
 
     }

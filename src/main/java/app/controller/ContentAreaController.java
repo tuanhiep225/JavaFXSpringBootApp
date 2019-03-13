@@ -62,17 +62,14 @@ public class ContentAreaController implements Initializable {
     private JFXButton btnClose;
     
     @Autowired
-    SpringFXMLLoader spingFXMLLoader;
-    
-    @FXML
-    private JFXTabPane tabContent;
+    SpringFXMLLoader spingFXMLLoader; 
+
     
     @Autowired
     ITiktokAPI tiktokAPI;
     
     ListFeedResponse listFeedResponse = null;
-    
-    UserSearchResponse userSearchResponse=  null;
+ 
     
     int videoIndex = 0;
     
@@ -86,13 +83,9 @@ public class ContentAreaController implements Initializable {
     @FXML
     private JFXButton btnDownload;
     
-
-    @FXML
-    private JFXTextField textSearch;
     
-
     @FXML
-    private VBox tab_content_nguoidung;
+    private HBox hboxMainContent;
 
 	/**
 	 * Initializes the controller class.
@@ -106,10 +99,12 @@ public class ContentAreaController implements Initializable {
 		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build());
 		WebEngine engin = webView.getEngine();
 		engin.load(listFeedResponse.getAweme_list().get(videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
+		hboxMainContent.getChildren().add(new SearchController());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 
 		
 	}
@@ -177,9 +172,6 @@ public class ContentAreaController implements Initializable {
     
     @FXML
     void onDownload(ActionEvent event)  {
-
-    	
-    	
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Save file");
     	fileChooser.setInitialDirectory(new File("C:/Videos/tiktok"));
@@ -205,41 +197,5 @@ public class ContentAreaController implements Initializable {
     	}
 
     }
-    
-    
-    @FXML
-    void onKeyPressed(KeyEvent ke) {
-        if (ke.getCode().equals(KeyCode.ENTER))
-        {
-        	
-    		try {
-				userSearchResponse =	tiktokAPI.searchUsers(UserSearchRequest.builder().type(1).cursor(0).count("10").keyword(textSearch.getText()).build());
-				if(!tab_content_nguoidung.getChildren().isEmpty()) {
-					tab_content_nguoidung.getChildren().setAll(new ArrayList<Node>());
-				}
-        		userSearchResponse.getUser_list().forEach(user->{
-        			String image = user.getUser_info().getAvatar_thumb().getUrl_list().get(0);
-        			String name = user.getUser_info().getNickname();
-        			String tiktokId = user.getUser_info().getUnique_id();
-        			CustomControl custom = new CustomControl();
-        			custom.setImageView(image);
-        			custom.setName(name);
-        			custom.setIdTiktok(tiktokId);
-        			tab_content_nguoidung.getChildren().add(custom);
-        		});
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        }
-    }
-    
-    @FXML
-    void viewAllVideo(ActionEvent event) throws Exception {
-    	System.out.println("ok");
-
-    }
-    
-
 
 }
