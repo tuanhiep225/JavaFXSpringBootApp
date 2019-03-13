@@ -103,6 +103,7 @@
 						</HBox>
 					</children>
 				</VBox>
+            <StackPane fx:id="stackPanel" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
 			</children>
 		</HBox>
 	</children>
