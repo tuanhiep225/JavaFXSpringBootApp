@@ -103,16 +103,9 @@ public class ContentAreaController implements Initializable {
 		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build());
 		WebEngine engin = webView.getEngine();
 		engin.load(listFeedResponse.getAweme_list().get(videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
-		
-		
-		
 		SearchController searchContent = new SearchController();
-		
-		ResutlSearchController resultSearch = new ResutlSearchController();
-		
-		resultSearch.setVisible(false);
 		stackPanel.getChildren().add(searchContent);
-		stackPanel.getChildren().add(resultSearch);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

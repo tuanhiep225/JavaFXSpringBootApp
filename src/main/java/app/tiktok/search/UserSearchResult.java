@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import app.tiktok.user.CommonUserDetails;
+import app.tiktok.user.UserProfile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,5 +32,5 @@ public class UserSearchResult {
 	List<SubstringPosition> uniqid_position;
 
 	  /** Information about the user */
-	CommonUserDetails user_info;
+	UserProfile user_info;
 }

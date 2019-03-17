@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="209.0" prefWidth="157.0" style="-fx-background-color: blue;" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<ImageView fx:id="imgViewResult" fitHeight="210.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="https://znews-photo.zadn.vn/w660/Uploaded/orhwao_obvbhj3/2016_10_20/14568240_10208795860307410_2704530593685287066_n.jpg" />
+			</image>
+		</ImageView>
+		<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="157.0" StackPane.alignment="BOTTOM_CENTER">
+			<children>
+				<FontAwesomeIcon fill="WHITE" iconName="COMMENT" size="1.2em">
+					<font>
+						<Font size="13.0" />
+					</font>
+					<HBox.margin>
+						<Insets right="15.0" />
+					</HBox.margin>
+				</FontAwesomeIcon>
+            <FontAwesomeIcon fill="WHITE" iconName="HEART" size="1.2em">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </FontAwesomeIcon>
+			</children>
+		</HBox>
+	</children>
+	<FlowPane.margin>
+		<Insets left="10.0" top="10.0" />
+	</FlowPane.margin>
+</fx:root>

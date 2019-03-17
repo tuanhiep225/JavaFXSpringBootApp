@@ -57,13 +57,7 @@ public class SearchController extends VBox{
 					tab_content_nguoidung.getChildren().setAll(new ArrayList<Node>());
 				}
       		userSearchResponse.getUser_list().forEach(user->{
-      			String image = user.getUser_info().getAvatar_thumb().getUrl_list().get(0);
-      			String name = user.getUser_info().getNickname();
-      			String tiktokId = user.getUser_info().getUnique_id();
-      			CustomControl custom = new CustomControl();
-      			custom.setImageView(image);
-      			custom.setName(name);
-      			custom.setIdTiktok(tiktokId);
+      			CustomControl custom = new CustomControl(user.getUser_info());
       			tab_content_nguoidung.getChildren().add(custom);
       		});
 			} catch (Exception e) {

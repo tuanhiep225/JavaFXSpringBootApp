@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 
+import app.tiktok.search.UserSearchResult;
+import app.tiktok.user.UserProfile;
 import app.utils.TiktokAPI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -41,7 +44,10 @@ public class CustomControl extends HBox {
     
 
     private TiktokAPI tiktokAPI;
-
+    
+    
+    private UserProfile userProfile;
+    
     public CustomControl() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/custom_control.fxml"));
         fxmlLoader.setRoot(this);
@@ -49,6 +55,22 @@ public class CustomControl extends HBox {
         tiktokAPI = new TiktokAPI();
         try {
             fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+    
+    public CustomControl(UserProfile userProfile) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/custom_control.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        tiktokAPI = new TiktokAPI();
+        try {
+            fxmlLoader.load();
+            this.setIdTiktok(userProfile.getUnique_id());
+            this.setImageView(userProfile.getAvatar_thumb().getUrl_list().get(0).replace(".webp", ""));
+            this.setName(userProfile.getNickname());
+            this.setUserProfile(userProfile);
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -77,15 +99,24 @@ public class CustomControl extends HBox {
 	public void setImageView(String url) {
 		imageView.setImage(new Image(url));
 	}
-    
-    @FXML
+	
+	
+	
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+	@FXML
     void viewAllVideo(ActionEvent event) throws Exception {
     	
     	Scene scene = this.getScene();
-    	VBox node = (VBox) scene.lookup("#contentSearch");
-    	node.setVisible(false);
-    	HBox node1 = (HBox) scene.lookup("#hboxMainContent");
-    	node1.getChildren().add(new ResutlSearchController(lblName.getText(),imageView.getImage(),tblIdTiktok.getText()));
+    	StackPane stackPane = (StackPane) scene.lookup("#stackPanel");
+    	stackPane.getChildren().get(0).setVisible(false);
+    	stackPane.getChildren().add(new ResutlSearchController(userProfile));
     	System.out.println("name: "+ lblName.getText());
 
     }

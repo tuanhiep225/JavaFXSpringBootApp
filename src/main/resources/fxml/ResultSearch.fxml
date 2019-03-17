@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root fx:id="searchResult" prefHeight="745.0" HBox.hgrow="ALWAYS" prefWidth="600.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="searchResult" prefHeight="745.0" prefWidth="600.0" type="javafx.scene.layout.VBox" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="150.0" prefWidth="600.0">
          <children>
@@ -19,7 +19,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="103.0">
                      <children>
-                        <JFXButton prefHeight="48.0" prefWidth="25.0" textFill="#f8f8f8">
+                        <JFXButton fx:id="tbnBack" onAction="#onBack" prefHeight="48.0" prefWidth="25.0" textFill="#f8f8f8">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="ARROW_LEFT" size="2em" text="" wrappingWidth="26.0">
                                  <font>
@@ -91,7 +91,7 @@
                <children>
                   <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="28.2k Trái tim" textFill="WHITE">
+                        <Label fx:id="lblFavoritedCount" text="28.2k Trái tim" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -103,7 +103,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="149 Following" textFill="WHITE">
+                        <Label fx:id="lblFollowingCount" text="149 Following" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -115,7 +115,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="9.6k Người theo dõi" textFill="WHITE">
+                        <Label fx:id="lblFollowerCount" text="9.6k Người theo dõi" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -131,7 +131,8 @@
       </VBox>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
-            <VBox prefHeight="200.0" prefWidth="100.0" />
+            <FlowPane fx:id="resutlViewVideos" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+            </FlowPane>
          </content>
       </ScrollPane>
    </children>
