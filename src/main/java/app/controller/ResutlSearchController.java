@@ -132,9 +132,11 @@ public class ResutlSearchController extends VBox {
 
 	private void loadData(String userId) throws Exception {
 	 listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count("10").user_id(userId).retry_type("1").build());
-	 listPostResponse.getAweme_list().forEach(post->{
-			resutlViewVideos.getChildren().add(new ItemVideoController(post));
-	 });
+	 if(null != listPostResponse.getAweme_list()) {
+		 listPostResponse.getAweme_list().forEach(post->{
+				resutlViewVideos.getChildren().add(new ItemVideoController(post));
+		 });
+	 }
 	}
 
 	@FXML

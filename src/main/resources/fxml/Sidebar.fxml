@@ -20,22 +20,14 @@
 
 <VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="580.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../styles/stylehseet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.SidebarController">
    <children>
-      <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
+      <ImageView fx:id="imgLogo" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@../images/user-icon.png" />
+            <Image url="@../images/tiktok.png" />
          </image>
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
       </ImageView>
-      <JFXButton contentDisplay="RIGHT" ripplerFill="#e4dddd" styleClass="sidebar-user-btn" text="Neuton Barley">
-         <font>
-            <Font name="Calibri" size="14.0" />
-         </font>
-         <graphic>
-            <FontAwesomeIcon glyphStyle="-fx-fill:#b8b1b1" iconName="SORT_DESC" size="1.2em" />
-         </graphic>
-      </JFXButton>
       <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" text="Main" textFill="#b8b1b1">
          <font>
             <Font name="Calibri Bold" size="14.0" />
@@ -130,17 +122,6 @@
             </Label>
          </children>
       </HBox>
-      <Label layoutX="10.0" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" text="Admin" textFill="#b8b1b1">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-      </Label>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
          <padding>
             <Insets left="20.0" />
