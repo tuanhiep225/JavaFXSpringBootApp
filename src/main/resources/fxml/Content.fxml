@@ -65,7 +65,7 @@
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <JFXButton contentDisplay="TOP" text="12.2k" textFill="WHITE">
+                                    <JFXButton fx:id="btnHeartWebView" contentDisplay="TOP" text="12.2k" textFill="WHITE">
                                        <graphic>
                                           <FontAwesomeIcon fill="WHITE" iconName="HEART" size="2.0em">
                                              <font>
@@ -77,7 +77,7 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </JFXButton>
-                                    <JFXButton contentDisplay="TOP" text="634" textFill="WHITE">
+                                    <JFXButton fx:id="btnCommentWebView" contentDisplay="TOP" text="634" textFill="WHITE">
                                        <graphic>
                                           <FontAwesomeIcon fill="WHITE" iconName="COMMENT" size="2em" text="">
                                              <font>

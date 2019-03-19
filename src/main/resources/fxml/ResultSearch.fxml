@@ -129,7 +129,7 @@
             </HBox>
          </children>
       </VBox>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <ScrollPane fx:id="scrollPaneResultSearch" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
             <FlowPane fx:id="resutlViewVideos" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
             </FlowPane>

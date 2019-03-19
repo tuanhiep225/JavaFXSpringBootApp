@@ -23,7 +23,7 @@
 				<FontAwesomeIcon fill="#546f9a" iconName="SEARCH" size="2em" wrappingWidth="29.0" />
 			</children>
 		</HBox>
-		<JFXTabPane styleClass="tab-header-background" VBox.vgrow="ALWAYS">
+		<JFXTabPane VBox.vgrow="ALWAYS">
 			<VBox.margin>
 				<Insets />
 			</VBox.margin>

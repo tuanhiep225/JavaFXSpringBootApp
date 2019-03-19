@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,27 +12,27 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTabPane;
-import com.jfoenix.controls.JFXTextField;
 
 import app.config.SpringFXMLLoader;
 import app.config.StageManager;
 import app.tiktok.feed.ListFeedRequest;
 import app.tiktok.feed.ListFeedResponse;
-import app.tiktok.search.UserSearchRequest;
-import app.tiktok.search.UserSearchResponse;
+import app.tiktok.post.Post;
 import app.tiktok.type.FeedType;
 import app.tiktok.type.PullType;
 import app.utils.ITiktokAPI;
+import app.utils.StringUtils;
 import app.view.FxmlView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -90,6 +89,12 @@ public class ContentAreaController implements Initializable {
     
     @FXML
     private StackPane stackPanel;
+    
+    @FXML
+    private JFXButton btnHeartWebView;
+    
+    @FXML
+    private JFXButton btnCommentWebView;
 
 	/**
 	 * Initializes the controller class.
@@ -101,17 +106,13 @@ public class ContentAreaController implements Initializable {
 		
 		try {
 		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build());
-		WebEngine engin = webView.getEngine();
-		engin.load(listFeedResponse.getAweme_list().get(videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
+		setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
 		SearchController searchContent = new SearchController();
 		stackPanel.getChildren().add(searchContent);
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-
 		
 	}
 
@@ -141,22 +142,20 @@ public class ContentAreaController implements Initializable {
     
     @FXML
     void onPrev(ActionEvent event) {
-    	WebEngine engin = webView.getEngine();
     	try {
-    		engin.load(listFeedResponse.getAweme_list().get(--videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
+    		setViewDataAndPlay(listFeedResponse.getAweme_list().get(--videoIndex));
 		} catch (Exception e) {
-			engin.load(listFeedResponse.getAweme_list().get(0).getVideo().getPlay_addr().getUrl_list().get(0));
+			setViewDataAndPlay(listFeedResponse.getAweme_list().get(0));
 		}
     }
 
     @FXML
     void onNext(ActionEvent event) throws Exception {
-    	WebEngine engin = webView.getEngine();
     	try {
-    		engin.load(listFeedResponse.getAweme_list().get(++videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
+    		setViewDataAndPlay(listFeedResponse.getAweme_list().get(++videoIndex));
 		} catch (Exception e) {
 			listFeedResponse.getAweme_list().addAll(tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).getAweme_list());
-			engin.load(listFeedResponse.getAweme_list().get(videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
+			setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
 		}
 
     }
@@ -164,11 +163,10 @@ public class ContentAreaController implements Initializable {
     
     @FXML
     void onReload(ActionEvent event) {
-		WebEngine engin = webView.getEngine();
 		videoIndex = 0;
     	try {
     		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build());
-    		engin.load(listFeedResponse.getAweme_list().get(videoIndex).getVideo().getPlay_addr().getUrl_list().get(0));
+    		setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
     		} catch (Exception e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
@@ -203,5 +201,14 @@ public class ContentAreaController implements Initializable {
     	}
 
     }
+    
+    
+    public void setViewDataAndPlay(Post post) {
+    	this.btnHeartWebView.setText(StringUtils.convertNumber(post.getStatistics().getDigg_count()));
+    	this.btnCommentWebView.setText(StringUtils.convertNumber(post.getStatistics().getComment_count()));
+    	WebEngine engin = webView.getEngine();
+    	engin.load(post.getVideo().getPlay_addr().getUrl_list().get(0));
+    }
+    
 
 }

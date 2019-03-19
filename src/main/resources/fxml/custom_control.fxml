@@ -31,15 +31,19 @@
          </children></VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #373d49;">
          <children>
-            <JFXButton fx:id="btnViewAllVideo" onAction="#viewAllVideo" prefHeight="25.0" prefWidth="60.0">
+            <JFXSpinner fx:id="spinner" radius="7.0" visible="false">
+               <HBox.margin>
+                  <Insets bottom="20.0" />
+               </HBox.margin>
+            </JFXSpinner>
+            
+            <JFXButton fx:id="btnDownloadAll" alignment="TOP_RIGHT" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="43.0" prefWidth="77.0" text="2360 Video" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIcon fill="WHITE" iconName="EYE" size="1.5em" wrappingWidth="1.0" />
+                  <FontAwesomeIcon fill="WHITE" iconName="DOWNLOAD" size="1.5em" wrappingWidth="19.0" />
                </graphic>
-            </JFXButton>
-            <JFXButton prefHeight="25.0" prefWidth="60.0">
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" iconName="DOWNLOAD" size="1.5em" wrappingWidth="1.0" />
-               </graphic>
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
             </JFXButton>
          </children></HBox>
    </children>

@@ -8,18 +8,22 @@ import java.io.IOException;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTabPane;
 
 import app.tiktok.search.UserSearchResult;
 import app.tiktok.user.UserProfile;
 import app.utils.TiktokAPI;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -40,10 +44,13 @@ public class CustomControl extends HBox {
     private ImageView imageView;
     
     @FXML
-    private JFXButton btnViewAllVideo;
+    private JFXButton btnDownloadAll;
     
 
     private TiktokAPI tiktokAPI;
+    
+    @FXML
+    private JFXSpinner spinner;
     
     
     private UserProfile userProfile;
@@ -71,9 +78,21 @@ public class CustomControl extends HBox {
             this.setImageView(userProfile.getAvatar_thumb().getUrl_list().get(0).replace(".webp", ""));
             this.setName(userProfile.getNickname());
             this.setUserProfile(userProfile);
+            this.btnDownloadAll.setText(userProfile.getAweme_count().toString()+ " Video");
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        
+        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+					if (mouseEvent.getClickCount() == 2) {
+						viewAllVideo();
+					}
+				}
+			}
+		});
     }
 
 	public String getIdTiktok() {
@@ -110,8 +129,8 @@ public class CustomControl extends HBox {
 		this.userProfile = userProfile;
 	}
 
-	@FXML
-    void viewAllVideo(ActionEvent event) throws Exception {
+
+   public void viewAllVideo(){
     	
     	Scene scene = this.getScene();
     	StackPane stackPane = (StackPane) scene.lookup("#stackPanel");

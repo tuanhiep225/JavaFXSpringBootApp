@@ -4,6 +4,8 @@
 package app.controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import org.springframework.stereotype.Controller;
 
@@ -12,14 +14,19 @@ import com.jfoenix.controls.JFXButton;
 import app.tiktok.post.ListPostsRequest;
 import app.tiktok.post.ListPostsResponse;
 import app.tiktok.user.UserProfile;
+import app.utils.StringUtils;
 import app.utils.TiktokAPI;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -30,7 +37,7 @@ import javafx.scene.shape.Rectangle;
  *
  */
 @Controller
-public class ResutlSearchController extends VBox {
+public class ResutlSearchController extends VBox{
 
 	@FXML
 	private Label lblNameP;
@@ -61,6 +68,9 @@ public class ResutlSearchController extends VBox {
     
     @FXML
     private FlowPane  resutlViewVideos;
+    
+    @FXML
+    private ScrollPane scrollPaneResultSearch;
 
 	public ResutlSearchController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ResultSearch.fxml"));
@@ -84,15 +94,25 @@ public class ResutlSearchController extends VBox {
 			this.lblNameP.setText(userProfile.getNickname());
 			this.imgAvatar.setImage(new Image(userProfile.getAvatar_thumb().getUrl_list().get(0).replace(".webp", "")));
 			this.lblTiktokId.setText(userProfile.getUnique_id());
-			this.lblFavoritedCount.setText(userProfile.getTotal_favorited().toString() + " Trái tim");
-			this.lblFollowingCount.setText(userProfile.getFollowing_count().toString()+ " Following");
-			this.lblFollowerCount.setText(userProfile.getFollower_count().toString()+ " Người theo dõi");
+			this.lblFavoritedCount.setText(StringUtils.convertNumber(userProfile.getTotal_favorited())  + " Trái tim");
+			this.lblFollowingCount.setText(StringUtils.convertNumber(userProfile.getFollowing_count())+ " Following");
+			this.lblFollowerCount.setText(StringUtils.convertNumber(userProfile.getFollower_count())+ " Người theo dõi");
 			Rectangle clip = new Rectangle(this.imgAvatar.getFitWidth(), this.imgAvatar.getFitHeight());
 			clip.setArcWidth(this.imgAvatar.getFitWidth());
 			clip.setArcHeight(this.imgAvatar.getFitHeight());
 			this.imgAvatar.setClip(clip);
 			tiktokAPI = new TiktokAPI();
 			loadData(userProfile.getUid());
+			
+			scrollPaneResultSearch.setOnScroll(new EventHandler<ScrollEvent>() {
+
+				@Override
+				public void handle(ScrollEvent event) {
+					System.out.println("ok");
+					
+				}
+				
+			});
 		} catch (Exception exception) {
 			throw new RuntimeException(exception);
 		}

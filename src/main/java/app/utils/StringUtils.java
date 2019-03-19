@@ -34,9 +34,18 @@ public class StringUtils {
 		}
 		return String.valueOf(outputBytes);
 	}
+	
+	public static String convertNumber(int number) {
+		if(number>10000) {
+			double rs = number/1000.0;
+			return String.valueOf(Math.round(rs*10) /10.0)+ "k";
+		}
+		return String.valueOf(number);
+	}
 
 	 public static void main(String[] args) {
-		 	System.out.println(encryptWithXor("+840984599264"));
-	    	System.out.println(encryptWithXor("123456a@"));
+//		 	System.out.println(encryptWithXor("+840984599264"));
+//	    	System.out.println(encryptWithXor("123456a@"));
+		 System.out.println(convertNumber(112660));
 	    }
 }

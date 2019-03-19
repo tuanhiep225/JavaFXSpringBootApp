@@ -7,7 +7,8 @@
     -fx-color-1:#1976D2;
 }
 .sidebar{
-    -fx-background-color: rgb(58,69,88);
+    -fx-background-color:  #2A2E37;
+    
 }
 .sidebar-user-btn{
     -fx-background-color: transparent;
@@ -91,7 +92,7 @@
     -fx-text-fill: #00a1ff;
 }
 .title-main{
-	-fx-background-color: rgb(79,94,119);
+	-fx-background-color: -fx-primary;
 }
 
 .tab-header-background{
@@ -100,4 +101,44 @@
 
 .jfx-unfocus-color{
 	-fx-text-fill: white;
+}
+
+
+
+/*TablPane styling*/
+.tab{
+    -fx-background-color: -fx-primary;
+    -fx-pref-width: 180px
+}
+
+.tab-header-background{
+    -fx-background-color: -fx-primary;
+}
+
+.tab-label{
+    -fx-text-fill: -fx-secondary;
+    -fx-font-size: 10pt; 
+}
+
+
+.tab-main{
+    -fx-pref-height : 60;
+    -fx-max-height : 60;
+}
+
+.settings-tab{
+    -fx-background-color: derive(-fx-primary, 10%);
+    -fx-padding: 5px 20px 5px 20px;
+}
+
+.settings-tab:selected{
+    -fx-background-color: -fx-secondary;
+}
+
+.settings-tab:selected .tab-label{
+    -fx-text-fill: -fx-primary;
+}
+
+.settings-tab .tab-header-background{
+    -fx-background-color: derive(-fx-primary, -50%);
 }
