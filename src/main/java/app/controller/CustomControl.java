@@ -4,16 +4,25 @@
 package app.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
-import com.jfoenix.controls.JFXTabPane;
 
-import app.tiktok.search.UserSearchResult;
 import app.tiktok.user.UserProfile;
-import app.utils.TiktokAPI;
+import app.utils.BeanUtil;
+import app.utils.MediaUtils;
+import app.utils.TiktokAPIImpl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,64 +35,64 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 /**
  * @author tuanhiep225
  *
  */
 @Controller
-public class CustomControl extends HBox {
-    @FXML
-    private Label tblIdTiktok;
+public class CustomControl extends HBox{
+	@FXML
+	private Label tblIdTiktok;
 
-    @FXML
-    private Label lblName;
+	@FXML
+	private Label lblName;
 
-    @FXML
-    private ImageView imageView;
-    
-    @FXML
-    private JFXButton btnDownloadAll;
-    
+	@FXML
+	private ImageView imageView;
 
-    private TiktokAPI tiktokAPI;
-    
-    @FXML
-    private JFXSpinner spinner;
-    
-    
-    private UserProfile userProfile;
-    
-    public CustomControl() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/custom_control.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        tiktokAPI = new TiktokAPI();
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
-    
-    public CustomControl(UserProfile userProfile) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/custom_control.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        tiktokAPI = new TiktokAPI();
-        try {
-            fxmlLoader.load();
-            this.setIdTiktok(userProfile.getUnique_id());
-            this.setImageView(userProfile.getAvatar_thumb().getUrl_list().get(0).replace(".webp", ""));
-            this.setName(userProfile.getNickname());
-            this.setUserProfile(userProfile);
-            this.btnDownloadAll.setText(userProfile.getAweme_count().toString()+ " Video");
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-        
-        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	@FXML
+	private JFXButton btnDownloadAll;
+
+	private TiktokAPIImpl tiktokAPI;
+
+	private MediaUtils media;
+
+	@FXML
+	private JFXSpinner spinner;
+
+	private UserProfile userProfile;
+
+	public CustomControl() {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/custom_control.fxml"));
+		fxmlLoader.setRoot(this);
+		fxmlLoader.setController(this);
+		tiktokAPI = new TiktokAPIImpl();
+		try {
+			fxmlLoader.load();
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
+	}
+
+	public CustomControl(UserProfile userProfile) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/custom_control.fxml"));
+		fxmlLoader.setRoot(this);
+		fxmlLoader.setController(this);
+		tiktokAPI = new TiktokAPIImpl();
+		media = (MediaUtils)BeanUtil.getBean(MediaUtils.class);
+		try {
+			fxmlLoader.load();
+			this.setIdTiktok(userProfile.getUnique_id());
+			this.setImageView(userProfile.getAvatar_thumb().getUrl_list().get(0).replace(".webp", ""));
+			this.setName(userProfile.getNickname());
+			this.setUserProfile(userProfile);
+			this.btnDownloadAll.setText(userProfile.getAweme_count().toString() + " Video");
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
+
+		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
 				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
@@ -93,7 +102,7 @@ public class CustomControl extends HBox {
 				}
 			}
 		});
-    }
+	}
 
 	public String getIdTiktok() {
 		return tblIdTiktok.getText();
@@ -118,9 +127,7 @@ public class CustomControl extends HBox {
 	public void setImageView(String url) {
 		imageView.setImage(new Image(url));
 	}
-	
-	
-	
+
 	public UserProfile getUserProfile() {
 		return userProfile;
 	}
@@ -129,16 +136,29 @@ public class CustomControl extends HBox {
 		this.userProfile = userProfile;
 	}
 
+	public void viewAllVideo() {
 
-   public void viewAllVideo(){
-    	
-    	Scene scene = this.getScene();
-    	StackPane stackPane = (StackPane) scene.lookup("#stackPanel");
-    	stackPane.getChildren().get(0).setVisible(false);
-    	stackPane.getChildren().add(new ResutlSearchController(userProfile));
-    	System.out.println("name: "+ lblName.getText());
+		Scene scene = this.getScene();
+		StackPane stackPane = (StackPane) scene.lookup("#stackPanel");
+		stackPane.getChildren().get(0).setVisible(false);
+		stackPane.getChildren().add(new ResutlSearchController(userProfile));
+		System.out.println("name: " + lblName.getText());
 
-    }
-    
-    
+	}
+
+	@FXML
+	void onDownloadAll(ActionEvent event) throws InterruptedException, ExecutionException {
+
+		String url = "http://v16.tiktokcdn.com/e495ea0d5a7e47332d14da5aad55f76f/5c929770/video/n/v0102/9d2e11f09a3b4636b887db5c0bc16287/?rc=anE3b2c7ZHFlajMzMzgzM0ApQHRAbzU3NTY1Mzg0NDg0OjM2PDNAKXUpQGczdylAZmh1eXExZnNoaGRmMzRALS5jX2cvbzBsXy0tYC80c3M1byNvIzIyNS40LS4tLS8xLS8tLi9pOmItbyM6YC1vI3BiZnJoXitqdDojNS5e";
+		System.out.println("Current Thread in test class " + Thread.currentThread().getName());
+		List<CompletableFuture<String>> rs = new ArrayList<>();
+		for (int i = 0; i < 30; i++) {
+			rs.add(media.dowload(url, "" + i));
+		}
+		for (int i = 0; i < 30; i++) {
+			rs.get(i).get();
+		}
+
+	}
+
 }

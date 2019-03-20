@@ -1,20 +1,7 @@
-/**
- * 
- */
 package app.utils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.Response;
-
-import org.springframework.stereotype.Service;
-
-import app.common.RequestParamCommon;
 import app.tiktok.category.ListCategoriesRequest;
 import app.tiktok.category.ListCategoriesResponse;
 import app.tiktok.comment.ListCommentsRequest;
@@ -36,234 +23,36 @@ import app.tiktok.post.ListPostsRequest;
 import app.tiktok.post.ListPostsResponse;
 import app.tiktok.qrcode.QRCodeRequest;
 import app.tiktok.qrcode.QRCodeResponse;
-import app.tiktok.request.AntiSpamParams;
-import app.tiktok.request.RequiredUserDefinedRequestParams;
 import app.tiktok.search.HashtagSearchResponse;
 import app.tiktok.search.SearchRequest;
 import app.tiktok.search.UserSearchRequest;
 import app.tiktok.search.UserSearchResponse;
 import app.tiktok.user.UserProfileResponse;
 
-/**
- * @author tuanhiep225
- *
- */
-@Service
-public class TiktokAPI implements ITiktokAPI{
-	private static Client client;
-	private final String baseUrl = "https://api-h2.tiktokv.com/%1$s";
-	private final String baseUrlNew = "https://api21-h2.tiktokv.com/%1$s";
-	
-	@Override
-	public LoginResponse login(LoginRequest request) throws Exception {
-		  client = ClientHelperUtils.createClient();
-		  String path = "passport/user/login/";
-		  String url = String.format(baseUrl, path);
-		  Map<String, String> newParam = new HashMap<>();
-		  newParam.put("mix_mode", "1");
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(), request, newParam);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Form form = new Form();
-		  form.param("mobile", request.getMobile());
-		  form.param("password", request.getPassword());
-		  Response response = target.request().post(Entity.form(form));
-		  return response.readEntity(LoginResponse.class);
-	}
-
-	@Override
-	public LoginResponse loginWithPhone(String phone, String password) throws Exception {
-		String passEncode = StringUtils.encryptWithXor(password);
-		String phoneEnCode =  StringUtils.encryptWithXor(phone);
-		LoginRequest loginRequest = LoginRequest.builder().mobile(phoneEnCode).password(passEncode).build();
-		
-		return login(loginRequest);
-	}
-	
-
-	@Override
-	public UserProfileResponse getUser(String userId) throws Exception {
-		 client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/user/";
-		  String url = String.format(baseUrl, path);
-		  Map<String, String> newParam = new HashMap<>();
-		  newParam.put("user_id",userId);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(), newParam);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(UserProfileResponse.class);
-	}
-
-	@Override
-	public UserSearchResponse searchUsers(UserSearchRequest request) throws Exception {
-		 client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/discover/search/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().header("x-tt-token", "01abe5e241592779dbed405dc78524c9c6e642d868a074472f1ea199fd5d666c38f70c3d3a94c0ab803d17967975cf245d16")
-				  .header("user-agent", "com.ss.android.ugc.trill/466 (Linux; U; Android 7.1.1; vi_VN; CPH1723; Build/N6F26Q; Cronet/58.0.2991.0)")
-				  .header("sdk-version", "1").get();
-		return response.readEntity(UserSearchResponse.class);
-	}
-
-	@Override
-	public ListPostsResponse listPosts(ListPostsRequest request) throws Exception {
-		 client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/aweme/post/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListPostsResponse.class);
-	}
-	
-	
-
-	@Override
-	public ListFollowersResponse listFollowers(ListFollowersRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/user/follower/list/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListFollowersResponse.class);
-	}
-	
-	@Override
-	public ListFollowingResponse listFollowing(ListFollowingRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/user/following/list/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListFollowingResponse.class);
-	}
 
 
-	// phải đăng nhập trước
-	@Override
-	public ListReceivedFollowRequestsResponse listReceivedFollowRequests(ListReceivedFollowRequestsRequest request)
-			throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/user/following/request/list/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListReceivedFollowRequestsResponse.class);
-	}
+public interface TiktokAPI {
 
-	@Override
-	public ListCommentsResponse listComments(ListCommentsRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/comment/list/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListCommentsResponse.class);
-	}
-
-	@Override
-	public ListCategoriesResponse listCategories(ListCategoriesRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/category/list/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListCategoriesResponse.class);
-	}
-
-	@Override
-	public HashtagSearchResponse searchHashtags(SearchRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/challenge/search/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(HashtagSearchResponse.class);
-	}
-
-	@Override
-	public ListPostsInHashtagResponse listPostsInHashtag(ListPostsInHashtagRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/challenge/aweme/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListPostsInHashtagResponse.class);
-	}
-
-	@Override
-	public ListFeedResponse listFollowingFeed(ListFeedRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/feed/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListFeedResponse.class);
-	}
-
-	@Override
-	public ListForYouFeedResponse listForYouFeed(ListFeedRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/feed/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
-		return response.readEntity(ListForYouFeedResponse.class);
-	}
-
-	@Override
-	public QRCodeResponse getQRCode(QRCodeRequest request) throws Exception {
-		client = ClientHelperUtils.createClient();
-		  String path = "aweme/v1/fancy/qrcode/info/";
-		  String url = String.format(baseUrl, path);
-		  
-		  
-		  Map<String, String> newParam = new HashMap<>();
-		  newParam.put("js_sdk_version","");
-		  newParam.put("app_type","normal");
-		  
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(), newParam);
-		  url+= param;
-		  WebTarget target = client.target(url);
-		  
-		  Form form = new Form();
-		  form.param("schema_type", request.getSchema_type().toString());
-		  form.param("object_id", request.getObject_id());
-
-		  Response response = target.request().post(Entity.form(form));
-		return response.readEntity(QRCodeResponse.class);
-	}
-	
-	public static void main (String[] agrs) throws Exception {
-		TiktokAPI a = new TiktokAPI();
-//		 HashtagSearchResponse us = a.searchHashtags(SearchRequest.builder().count("10").cursor(0).keyword("boss.sen").build());
-		UserSearchResponse rs= a.searchUsers(UserSearchRequest.builder().type(1).count("10").cursor(0).keyword("boss.sen").build());
-	//	LoginResponse b = a.loginWithPhone("+840984599264", "123456a@");
-		System.out.println("");
-	}
-
-
+	public LoginResponse login(LoginRequest request) throws Exception;
+	public LoginResponse loginWithPhone(String phone, String password) throws Exception;
+	public UserProfileResponse getUser(String userId) throws Exception;
+	public CompletableFuture<UserSearchResponse> searchUsers(UserSearchRequest request) throws Exception;
+	public QRCodeResponse  getQRCode(QRCodeRequest request) throws Exception;
+	public ListPostsResponse listPosts(ListPostsRequest request) throws Exception;
+	public ListFollowersResponse listFollowers(ListFollowersRequest request) throws Exception;
+	public ListFollowingResponse listFollowing(ListFollowingRequest request) throws Exception;
+//	public Map<String, Object> follow(String phone, String password);
+//	public Map<String, Object> unfollow(String phone, String password);
+	public ListReceivedFollowRequestsResponse listReceivedFollowRequests(ListReceivedFollowRequestsRequest request) throws Exception;
+//	public Map<String, Object> approveFollowRequest(String phone, String password);
+//	public Map<String, Object> rejectFollowRequest(String phone, String password);
+//	public Map<String, Object> likePost(String phone, String password);
+//	public Map<String, Object> unlikePost(String phone, String password);
+	public ListCommentsResponse listComments(ListCommentsRequest request) throws Exception;
+//	public Map<String, Object> postComment(String phone, String password);
+	public ListCategoriesResponse listCategories(ListCategoriesRequest request) throws Exception;
+	public HashtagSearchResponse searchHashtags(SearchRequest request) throws Exception;
+	public ListPostsInHashtagResponse listPostsInHashtag(ListPostsInHashtagRequest request) throws Exception;
+	public CompletableFuture<ListFeedResponse> listFollowingFeed(ListFeedRequest request) throws Exception;
+	public ListForYouFeedResponse listForYouFeed(ListFeedRequest request) throws Exception;
 }

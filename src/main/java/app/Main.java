@@ -2,15 +2,26 @@ package app;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.util.concurrent.Executor;
+
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import app.config.CustomAsyncExceptionHandler;
 import app.config.StageManager;
 import app.view.FxmlView;
 
 @SpringBootApplication
-public class Main extends Application {
+@EnableAsync
+public class Main extends Application{
 
     protected ConfigurableApplicationContext springContext;
     protected StageManager stageManager;

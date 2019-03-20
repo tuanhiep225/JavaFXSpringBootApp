@@ -20,7 +20,7 @@ import app.tiktok.feed.ListFeedResponse;
 import app.tiktok.post.Post;
 import app.tiktok.type.FeedType;
 import app.tiktok.type.PullType;
-import app.utils.ITiktokAPI;
+import app.utils.TiktokAPI;
 import app.utils.StringUtils;
 import app.view.FxmlView;
 import javafx.application.Platform;
@@ -66,7 +66,7 @@ public class ContentAreaController implements Initializable {
 
     
     @Autowired
-    ITiktokAPI tiktokAPI;
+    TiktokAPI tiktokAPI;
     
     ListFeedResponse listFeedResponse = null;
  
@@ -105,7 +105,7 @@ public class ContentAreaController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		
 		try {
-		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build());
+		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get();
 		setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
 		SearchController searchContent = new SearchController();
 		stackPanel.getChildren().add(searchContent);
@@ -154,7 +154,7 @@ public class ContentAreaController implements Initializable {
     	try {
     		setViewDataAndPlay(listFeedResponse.getAweme_list().get(++videoIndex));
 		} catch (Exception e) {
-			listFeedResponse.getAweme_list().addAll(tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).getAweme_list());
+			listFeedResponse.getAweme_list().addAll(tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get().getAweme_list());
 			setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
 		}
 
@@ -165,7 +165,7 @@ public class ContentAreaController implements Initializable {
     void onReload(ActionEvent event) {
 		videoIndex = 0;
     	try {
-    		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build());
+    		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get();
     		setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
     		} catch (Exception e) {
     			// TODO Auto-generated catch block

@@ -37,7 +37,7 @@
                </HBox.margin>
             </JFXSpinner>
             
-            <JFXButton fx:id="btnDownloadAll" alignment="TOP_RIGHT" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="43.0" prefWidth="77.0" text="2360 Video" textFill="WHITE">
+            <JFXButton fx:id="btnDownloadAll" alignment="TOP_RIGHT" contentDisplay="TOP" graphicTextGap="0.0" onAction="#onDownloadAll" prefHeight="43.0" prefWidth="77.0" text="2360 Video" textFill="WHITE">
                <graphic>
                   <FontAwesomeIcon fill="WHITE" iconName="DOWNLOAD" size="1.5em" wrappingWidth="19.0" />
                </graphic>

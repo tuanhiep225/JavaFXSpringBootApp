@@ -15,7 +15,7 @@ import app.tiktok.post.ListPostsRequest;
 import app.tiktok.post.ListPostsResponse;
 import app.tiktok.user.UserProfile;
 import app.utils.StringUtils;
-import app.utils.TiktokAPI;
+import app.utils.TiktokAPIImpl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -51,7 +51,7 @@ public class ResutlSearchController extends VBox{
 	@FXML
 	private JFXButton tbnBack;
 
-	private TiktokAPI tiktokAPI;
+	private TiktokAPIImpl tiktokAPI;
 	
 	private ListPostsResponse listPostResponse = null;
 	
@@ -101,7 +101,7 @@ public class ResutlSearchController extends VBox{
 			clip.setArcWidth(this.imgAvatar.getFitWidth());
 			clip.setArcHeight(this.imgAvatar.getFitHeight());
 			this.imgAvatar.setClip(clip);
-			tiktokAPI = new TiktokAPI();
+			tiktokAPI = new TiktokAPIImpl();
 			loadData(userProfile.getUid());
 			
 			scrollPaneResultSearch.setOnScroll(new EventHandler<ScrollEvent>() {

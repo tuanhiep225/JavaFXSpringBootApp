@@ -2,17 +2,19 @@ package app.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXTextField;
 
 import app.tiktok.search.UserSearchRequest;
 import app.tiktok.search.UserSearchResponse;
-import app.utils.ITiktokAPI;
 import app.utils.TiktokAPI;
+import app.utils.TiktokAPIImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -26,7 +28,7 @@ public class SearchController extends VBox{
     UserSearchResponse userSearchResponse=  null;
     
     @Autowired
-    ITiktokAPI tiktokAPI;
+    TiktokAPI tiktokAPI;
     
     @FXML
     private JFXTextField textSearch;
@@ -40,7 +42,7 @@ public class SearchController extends VBox{
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
-            tiktokAPI = new TiktokAPI();
+            tiktokAPI = new TiktokAPIImpl();
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -52,11 +54,11 @@ public class SearchController extends VBox{
       {
       	
   		try {
-				userSearchResponse =	tiktokAPI.searchUsers(UserSearchRequest.builder().type(1).cursor(0).count("10").keyword(textSearch.getText()).build());
+  			CompletableFuture<UserSearchResponse>	userSearchResponse =	tiktokAPI.searchUsers(UserSearchRequest.builder().type(1).cursor(0).count("10").keyword(textSearch.getText()).build());
 				if(!tab_content_nguoidung.getChildren().isEmpty()) {
 					tab_content_nguoidung.getChildren().setAll(new ArrayList<Node>());
 				}
-      		userSearchResponse.getUser_list().forEach(user->{
+      		userSearchResponse.get().getUser_list().forEach(user->{
       			CustomControl custom = new CustomControl(user.getUser_info());
       			tab_content_nguoidung.getChildren().add(custom);
       		});
