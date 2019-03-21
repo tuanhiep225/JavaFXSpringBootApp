@@ -9,20 +9,21 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 
+import app.tiktok.post.ListPostsRequest;
+import app.tiktok.post.ListPostsResponse;
 import app.tiktok.user.UserProfile;
 import app.utils.BeanUtil;
 import app.utils.MediaUtils;
 import app.utils.TiktokAPIImpl;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -58,10 +59,12 @@ public class CustomControl extends HBox{
 
 	private MediaUtils media;
 
-	@FXML
-	private JFXSpinner spinner;
+    @FXML
+    private JFXSpinner spinnerDownloadAll;
 
 	private UserProfile userProfile;
+	
+	
 
 	public CustomControl() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/custom_control.fxml"));
@@ -137,27 +140,83 @@ public class CustomControl extends HBox{
 	}
 
 	public void viewAllVideo() {
+		CustomControl self = this;
+		Service<Void> service = new Service<Void>() {
+			
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>() {
 
-		Scene scene = this.getScene();
-		StackPane stackPane = (StackPane) scene.lookup("#stackPanel");
-		stackPane.getChildren().get(0).setVisible(false);
-		stackPane.getChildren().add(new ResutlSearchController(userProfile));
-		System.out.println("name: " + lblName.getText());
-
+					@Override
+					protected Void call() throws Exception {
+						Platform.runLater(()->{
+							ContentAreaController controler = BeanUtil.getBean(ContentAreaController.class);
+							controler.thongbao();
+							Scene scene = self.getScene();
+							StackPane stackPane = controler.getStackPanel();
+							//StackPane stackPane = (StackPane) scene.lookup("#stackPanel");
+							stackPane.getChildren().get(0).setVisible(false);
+							stackPane.getChildren().add(new ResutlSearchController(userProfile));
+							System.out.println("name: " + lblName.getText());
+						});
+						return null;
+					}
+				};
+			}
+		};
+		service.restart();
 	}
 
 	@FXML
 	void onDownloadAll(ActionEvent event) throws InterruptedException, ExecutionException {
-
-		String url = "http://v16.tiktokcdn.com/e495ea0d5a7e47332d14da5aad55f76f/5c929770/video/n/v0102/9d2e11f09a3b4636b887db5c0bc16287/?rc=anE3b2c7ZHFlajMzMzgzM0ApQHRAbzU3NTY1Mzg0NDg0OjM2PDNAKXUpQGczdylAZmh1eXExZnNoaGRmMzRALS5jX2cvbzBsXy0tYC80c3M1byNvIzIyNS40LS4tLS8xLS8tLi9pOmItbyM6YC1vI3BiZnJoXitqdDojNS5e";
-		System.out.println("Current Thread in test class " + Thread.currentThread().getName());
-		List<CompletableFuture<String>> rs = new ArrayList<>();
-		for (int i = 0; i < 30; i++) {
-			rs.add(media.dowload(url, "" + i));
-		}
-		for (int i = 0; i < 30; i++) {
-			rs.get(i).get();
-		}
+		Service<Void>background = new Service<Void>() {
+			
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>() {
+					int a = 0;
+					@Override
+					protected Void call() throws Exception {
+						spinnerDownloadAll.setVisible(true);
+						ListPostsResponse listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count(userProfile.getAweme_count().toString()).user_id(userProfile.getUid()).retry_type("1").build());
+						System.out.println("Current Thread in test class " + Thread.currentThread().getName());
+						List<CompletableFuture<String>> rs = new ArrayList<>();
+						
+						if(listPostResponse.getAweme_list() != null) {
+							listPostResponse.getAweme_list().forEach(post->{
+								try {
+									rs.add(media.dowload(post.getVideo().getPlay_addr().getUrl_list().get(0),post.getAweme_id()));
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							});
+							
+							rs.forEach(x->{
+								try {
+									x.get();
+									++a;
+									updateMessage(String.valueOf(a));
+								} catch (InterruptedException | ExecutionException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							});
+						}
+						return null;
+					}
+					
+					
+					@Override
+					protected void succeeded() {
+						spinnerDownloadAll.setVisible(false);
+						super.succeeded();
+					}
+				};
+			}
+		};
+//		lblName.textProperty().bind(background.messageProperty());
+		background.restart();
 
 	}
 

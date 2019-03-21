@@ -203,12 +203,24 @@ public class ContentAreaController implements Initializable {
     }
     
     
-    public void setViewDataAndPlay(Post post) {
+    public StackPane getStackPanel() {
+		return stackPanel;
+	}
+
+	public void setStackPanel(StackPane stackPanel) {
+		this.stackPanel = stackPanel;
+	}
+
+	public void setViewDataAndPlay(Post post) {
     	this.btnHeartWebView.setText(StringUtils.convertNumber(post.getStatistics().getDigg_count()));
     	this.btnCommentWebView.setText(StringUtils.convertNumber(post.getStatistics().getComment_count()));
     	WebEngine engin = webView.getEngine();
     	engin.load(post.getVideo().getPlay_addr().getUrl_list().get(0));
     }
     
-
+    public void thongbao() {
+    	System.out.println("DDaay la thong bao");
+    }
+    
+    
 }

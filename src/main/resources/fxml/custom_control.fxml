@@ -31,7 +31,7 @@
          </children></VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #373d49;">
          <children>
-            <JFXSpinner fx:id="spinner" radius="7.0" visible="false">
+            <JFXSpinner fx:id="spinnerDownloadAll" radius="7.0" visible="false">
                <HBox.margin>
                   <Insets bottom="20.0" />
                </HBox.margin>

@@ -20,6 +20,7 @@
 						<Font size="13.0" />
 					</font>
 				</JFXTextField>
+            <JFXSpinner fx:id="spiner" radius="8.0" visible="false" />
 				<FontAwesomeIcon fill="#546f9a" iconName="SEARCH" size="2em" wrappingWidth="29.0" />
 			</children>
 		</HBox>

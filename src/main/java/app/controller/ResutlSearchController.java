@@ -16,6 +16,9 @@ import app.tiktok.post.ListPostsResponse;
 import app.tiktok.user.UserProfile;
 import app.utils.StringUtils;
 import app.utils.TiktokAPIImpl;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -151,12 +154,35 @@ public class ResutlSearchController extends VBox{
 	}
 
 	private void loadData(String userId) throws Exception {
-	 listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count("10").user_id(userId).retry_type("1").build());
-	 if(null != listPostResponse.getAweme_list()) {
-		 listPostResponse.getAweme_list().forEach(post->{
-				resutlViewVideos.getChildren().add(new ItemVideoController(post));
-		 });
-	 }
+	Service<Void> service = new Service<Void>() {
+		
+		@Override
+		protected Task<Void> createTask() {
+			return new Task<Void>() {
+
+				@Override
+				protected Void call() throws Exception {
+					Platform.runLater(()->{
+						 try {
+							 System.out.println("okkkkkkkkkkkkkkkkkkk");
+							listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count("10").user_id(userId).retry_type("1").build());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						 if(null != listPostResponse.getAweme_list()) {
+							 listPostResponse.getAweme_list().forEach(post->{
+									resutlViewVideos.getChildren().add(new ItemVideoController(post));
+							 });
+						 }
+					});
+					return null;
+				}
+			};
+		}
+	};
+	service.restart();
+
 	}
 
 	@FXML
