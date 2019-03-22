@@ -17,8 +17,8 @@ public class SidebarController implements Initializable {
     @FXML
     private VBox sidebar;
     
-    @FXML
-    private ImageView imgLogo;
+//    @FXML
+//    private ImageView imgLogo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
