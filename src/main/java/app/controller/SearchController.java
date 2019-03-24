@@ -46,6 +46,12 @@ public class SearchController extends VBox implements Initializable{
 
 	@FXML
 	private VBox tab_content_nguoidung;
+	
+	@FXML
+	private VBox tab_content_music;
+	
+	@FXML
+	private VBox tab_content_hashtag;
 
 	@FXML
 	private JFXSpinner spiner;
@@ -151,13 +157,12 @@ public class SearchController extends VBox implements Initializable{
 		HashtagSearchResponse response =tiktokAPI.searchHashtags(SearchRequest.builder().count("10").keyword(textSearch.getText()).build());
 		
 		Platform.runLater(() -> {
-			if (!tab_content_nguoidung.getChildren().isEmpty()) {
-				tab_content_nguoidung.getChildren().setAll(new ArrayList<Node>());
+			if (!tab_content_hashtag.getChildren().isEmpty()) {
+				tab_content_hashtag.getChildren().setAll(new ArrayList<Node>());
 			}
-			userSearchResponse.getUser_list().forEach(user -> {
-				CustomControl custom = new CustomControl(user.getUser_info());
-				tab_content_nguoidung.getChildren().add(custom);
-
+			response.getChallenge_list().forEach(hashtag -> {
+				HashTagSearchResultController custom = new HashTagSearchResultController(hashtag.getChallenge_info());
+				tab_content_hashtag.getChildren().add(custom);
 			});
 			spiner.setVisible(false);
 		});

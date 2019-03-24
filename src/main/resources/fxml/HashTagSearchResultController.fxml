@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" style="-fx-background-color: #2A2E37;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="80.0" prefWidth="100.0" style="-fx-background-color: #373d49;">
+			<children>
+				<VBox fx:id="vboxTag" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: #3366CC;">
+					<children>
+						<Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" text="#" textFill="WHITE">
+                     <font>
+                        <Font size="25.0" />
+                     </font></Label>
+					</children>
+				</VBox>
+			</children>
+		</HBox>
+		<HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" prefWidth="700.0" style="-fx-background-color: #373d49;" HBox.hgrow="ALWAYS">
+			<children>
+				<VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+					<children>
+						<Label fx:id="lblHashtagName" prefHeight="30.0" prefWidth="250.0" text="Label" textFill="#bf1d1d">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
+						<Label fx:id="lblHashtagUserCount" prefHeight="30.0" prefWidth="250.0" text="Label" textFill="#c33b3b">
+							<VBox.margin>
+								<Insets />
+							</VBox.margin>
+						</Label>
+                  <Label fx:id="lblHashTagViewCount" prefHeight="30.0" prefWidth="250.0" text="Label" textFill="#c33b3b" />
+					</children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+				</VBox>
+			</children>
+		</HBox>
+	</children>
+</fx:root>

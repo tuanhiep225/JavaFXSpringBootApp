@@ -44,4 +44,6 @@ public class ChallengeInfo {
 
 	/** The number of users who have uploaded a video for the challenge */
 	 Integer user_count;
+	 
+	 Integer view_count;
 }

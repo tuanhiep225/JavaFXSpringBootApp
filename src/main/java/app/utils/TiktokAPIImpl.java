@@ -112,7 +112,6 @@ public class TiktokAPIImpl implements TiktokAPI{
 		  Response response = target.request().header("x-tt-token", "01abe5e241592779dbed405dc78524c9c6e642d868a074472f1ea199fd5d666c38f70c3d3a94c0ab803d17967975cf245d16")
 				  .header("user-agent", "com.ss.android.ugc.trill/466 (Linux; U; Android 7.1.1; vi_VN; CPH1723; Build/N6F26Q; Cronet/58.0.2991.0)")
 				  .header("sdk-version", "1").get();
-		  Thread.sleep(5000);
 		return CompletableFuture.completedFuture(response.readEntity(UserSearchResponse.class));
 	}
 
@@ -207,7 +206,9 @@ public class TiktokAPIImpl implements TiktokAPI{
 		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id("6549802077311403522").iid("6644197233862854401").openudid("278552578f3f613f").build(), AntiSpamParams.builder().build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
-		  Response response = target.request().get();
+		  Response response = target.request().header("x-tt-token", "01abe5e241592779dbed405dc78524c9c6e642d868a074472f1ea199fd5d666c38f70c3d3a94c0ab803d17967975cf245d16")
+				  .header("user-agent", "com.ss.android.ugc.trill/466 (Linux; U; Android 7.1.1; vi_VN; CPH1723; Build/N6F26Q; Cronet/58.0.2991.0)")
+				  .header("sdk-version", "1").get();
 		return response.readEntity(HashtagSearchResponse.class);
 	}
 
