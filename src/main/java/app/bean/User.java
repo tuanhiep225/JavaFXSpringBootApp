@@ -2,9 +2,6 @@ package app.bean;
 
 import java.time.LocalDate;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 /**
  * @author Ram Alapure
  * @since 05-04-2017
@@ -12,10 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 //@Entity
 //@Table(name="User")
-@Document(collection="User")
+// @Document(collection="User")
 public class User {
 
-	@Id
+//	@Id
 //	@GeneratedValue(strategy=GenerationType.IDENTITY)
 //	@Column(name = "id", updatable = false, nullable = false)
 	private String id;

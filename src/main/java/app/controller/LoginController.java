@@ -26,49 +26,49 @@ import javafx.scene.control.TextField;
  */
 
 @Controller
-public class LoginController implements Initializable{
-
-	@FXML
-    private Button btnLogin;
-
-    @FXML
-    private PasswordField password;
-
-    @FXML
-    private TextField username;
-
-    @FXML
-    private Label lblLogin;
-    
-    @Autowired
-    private UserService userService;
-    
-    @Lazy
-    @Autowired
-    private StageManager stageManager;
-        
-	@FXML
-    private void login(ActionEvent event) throws IOException{
-    	if(userService.authenticate(getUsername(), getPassword())){
-    		    		
-    		//stageManager.switchScene(FxmlView.USER);
-    		
-    	}else{
-    		// stageManager.switchScene(FxmlView.FEED);
-    	}
-    }
-	
-	public String getPassword() {
-		return password.getText();
-	}
-
-	public String getUsername() {
-		return username.getText();
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-	}
+public class LoginController{
+//
+//	@FXML
+//    private Button btnLogin;
+//
+//    @FXML
+//    private PasswordField password;
+//
+//    @FXML
+//    private TextField username;
+//
+//    @FXML
+//    private Label lblLogin;
+//    
+//    @Autowired
+//    private UserService userService;
+//    
+//    @Lazy
+//    @Autowired
+//    private StageManager stageManager;
+//        
+//	@FXML
+//    private void login(ActionEvent event) throws IOException{
+//    	if(userService.authenticate(getUsername(), getPassword())){
+//    		    		
+//    		//stageManager.switchScene(FxmlView.USER);
+//    		
+//    	}else{
+//    		// stageManager.switchScene(FxmlView.FEED);
+//    	}
+//    }
+//	
+//	public String getPassword() {
+//		return password.getText();
+//	}
+//
+//	public String getUsername() {
+//		return username.getText();
+//	}
+//
+//	@Override
+//	public void initialize(URL location, ResourceBundle resources) {
+//		
+//	}
 
 }
