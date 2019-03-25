@@ -95,17 +95,17 @@
 			<type>jar</type>
 		</dependency>
 
-
-		<!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
 		<dependency>
 			<groupId>com.jfoenix</groupId>
 			<artifactId>jfoenix</artifactId>
-			<scope>system</scope>
-			<version>1.0.0</version>
-			<systemPath>${basedir}/libs/jfoenix-1.0.0.jar</systemPath>
+			<version>8.0.7</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>de.jensd</groupId>
+			<artifactId>fontawesomefx</artifactId>
+			<version>8.1</version>
+		</dependency>
 
 	</dependencies>
 
