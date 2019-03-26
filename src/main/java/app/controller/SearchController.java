@@ -117,13 +117,23 @@ public class SearchController extends VBox implements Initializable{
 			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
 				switch (arg2.intValue()) {
 				case 0:
-					System.out.println("Tab user");
+					try {
+						searchUsers();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					break;
 				case 1:
-					System.out.println("Tab music");
+
 					break;
 				case 2:
-					System.out.println("Tab hashtag");
+					try {
+						searchHashTags();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					break;
 				default:
 					break;
@@ -168,8 +178,19 @@ public class SearchController extends VBox implements Initializable{
 		});
 	}
 	
-	public void searchMusics() {
-		System.out.println("musics");
+	public void searchMusics() throws Exception {
+		HashtagSearchResponse response =tiktokAPI.searchHashtags(SearchRequest.builder().count("10").keyword(textSearch.getText()).build());
+		
+		Platform.runLater(() -> {
+			if (!tab_content_music.getChildren().isEmpty()) {
+				tab_content_music.getChildren().setAll(new ArrayList<Node>());
+			}
+			response.getChallenge_list().forEach(hashtag -> {
+				ItemMusicController custom = new ItemMusicController();
+				tab_content_music.getChildren().add(custom);
+			});
+			spiner.setVisible(false);
+		});
 	}
 
 
