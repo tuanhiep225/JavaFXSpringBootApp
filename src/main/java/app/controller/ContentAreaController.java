@@ -105,7 +105,7 @@ public class ContentAreaController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		
 		try {
-		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get();
+		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).min_cursor(-1).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get();
 		setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
 		SearchController searchContent = new SearchController();
 		stackPanel.getChildren().add(searchContent);

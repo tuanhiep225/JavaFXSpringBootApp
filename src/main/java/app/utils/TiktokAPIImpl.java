@@ -53,11 +53,11 @@ import app.tiktok.user.UserProfileResponse;
 @Service
 public class TiktokAPIImpl implements TiktokAPI{
 	private static Client client;
-	private final String baseUrl = "https://api-h2.tiktokv.com/%1$s";
-	private final String baseUrlNew = "https://api21-h2.tiktokv.com/%1$s";
+	private final String baseUrl = "https://aweme-eagle.snssdk.com/%1$s";
+	private final String baseUrlNew = "https://aweme.snssdk.com/%1$s";
 	
-	private final String DEVICE_ID = "6549802077311403522";
-	private final String IDD = "6644197233862854401";
+	private final String DEVICE_ID = "61209854179";
+	private final String IDD = "55910666513";
 	private final String OPENUID = "278552578f3f613f";
 	
 	@Override
@@ -68,7 +68,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		  String url = String.format(baseUrl, path);
 		  Map<String, String> newParam = new HashMap<>();
 		  newParam.put("mix_mode", "1");
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(), request, newParam);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(), request, newParam);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Form form = new Form();
@@ -97,7 +97,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		  String url = String.format(baseUrl, path);
 		  Map<String, String> newParam = new HashMap<>();
 		  newParam.put("user_id",userId);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(), newParam);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(), newParam);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -109,8 +109,8 @@ public class TiktokAPIImpl implements TiktokAPI{
 	public CompletableFuture<UserSearchResponse> searchUsers(UserSearchRequest request) throws Exception {
 		 client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/discover/search/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String url = String.format(baseUrlNew, path);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().header("x-tt-token", "01abe5e241592779dbed405dc78524c9c6e642d868a074472f1ea199fd5d666c38f70c3d3a94c0ab803d17967975cf245d16")
@@ -124,8 +124,8 @@ public class TiktokAPIImpl implements TiktokAPI{
 	public ListPostsResponse listPosts(ListPostsRequest request) throws Exception {
 		 client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/aweme/post/";
-		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String url = String.format(baseUrlNew, path);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -140,7 +140,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/user/follower/list/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -153,7 +153,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/user/following/list/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -169,7 +169,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/user/following/request/list/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -182,7 +182,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/comment/list/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -194,7 +194,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/category/list/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -207,7 +207,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/challenge/search/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().header("x-tt-token", "01abe5e241592779dbed405dc78524c9c6e642d868a074472f1ea199fd5d666c38f70c3d3a94c0ab803d17967975cf245d16")
@@ -222,7 +222,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/challenge/aweme/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -234,7 +234,8 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/feed/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  Map<String, String> newParam = new HashMap<>();	  
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request,newParam);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -246,7 +247,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/feed/";
 		  String url = String.format(baseUrl, path);
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(),request);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  Response response = target.request().get();
@@ -264,7 +265,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 		  newParam.put("js_sdk_version","");
 		  newParam.put("app_type","normal");
 		  
-		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().build(), newParam);
+		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(), newParam);
 		  url+= param;
 		  WebTarget target = client.target(url);
 		  

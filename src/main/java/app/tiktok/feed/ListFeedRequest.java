@@ -46,4 +46,6 @@ public class ListFeedRequest extends ListRequestParams {
 	   * Use max_cursor from the response data here for pagination. Use 0 for the most recent.
 	   */
 	Integer  max_cursor;
+	
+	Integer min_cursor;
 }

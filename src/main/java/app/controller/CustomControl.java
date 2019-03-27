@@ -176,9 +176,15 @@ public class CustomControl extends HBox{
 				return new Task<Void>() {
 					int a = 0;
 					@Override
-					protected Void call() throws Exception {
+					protected Void call()  {
 						spinnerDownloadAll.setVisible(true);
-						ListPostsResponse listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count(userProfile.getAweme_count().toString()).user_id(userProfile.getUid()).retry_type("1").build());
+						ListPostsResponse listPostResponse = null;
+						try {
+							listPostResponse = tiktokAPI.listPosts(ListPostsRequest.builder().count("10").user_id(userProfile.getUid()).retry_type("1").build());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						System.out.println("Current Thread in test class " + Thread.currentThread().getName());
 						List<CompletableFuture<String>> rs = new ArrayList<>();
 						
