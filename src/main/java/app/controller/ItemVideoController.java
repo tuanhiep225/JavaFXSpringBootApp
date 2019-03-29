@@ -16,6 +16,9 @@ import app.tiktok.post.Post;
 import app.tiktok.type.FeedType;
 import app.tiktok.type.PullType;
 import app.utils.StringUtils;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,10 +74,7 @@ public class ItemVideoController extends StackPane implements Initializable {
 		try {
 
 			fxmlLoader.load();
-			this.imgViewResult
-					.setImage(new Image(post.getVideo().getCover().getUrl_list().get(0).replace(".webp", "")));
-			this.btnCommentItemVideo.setText(StringUtils.convertNumber(post.getStatistics().getComment_count()));
-			this.btnHeartItemVideo.setText(StringUtils.convertNumber(post.getStatistics().getDigg_count()));
+			initData();
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
@@ -93,6 +93,32 @@ public class ItemVideoController extends StackPane implements Initializable {
 			}
 		});
 
+	}
+
+	private void initData() {
+		
+		Service<Void> service = new Service<Void>() {
+			
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>() {
+					@Override
+					protected Void call() throws Exception {
+						btnCommentItemVideo.setText(StringUtils.convertNumber(post.getStatistics().getComment_count()));
+						btnHeartItemVideo.setText(StringUtils.convertNumber(post.getStatistics().getDigg_count()));
+						Image image = new Image(post.getVideo().getCover().getUrl_list().get(0).replace(".webp", ""));
+						Platform.runLater(()->{
+							System.out.println("load xong ảnh");
+							imgViewResult.setImage(image);
+						});
+						return null;
+					}
+				};
+
+			}
+		};
+		
+		service.restart();
 	}
 
 	private void playVideo(Post post) {

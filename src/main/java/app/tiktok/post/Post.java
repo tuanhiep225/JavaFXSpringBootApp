@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import app.tiktok.music.MusicTrack;
 import app.tiktok.user.CommonUserDetails;
+import app.tiktok.user.UserProfile;
 import app.tiktok.video.Video;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +28,7 @@ import lombok.experimental.SuperBuilder;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Post {
 	/** Details about the author */
-	CommonUserDetails author;
+	UserProfile author;
 
 	/** The ID of the author */
 	String author_user_id;

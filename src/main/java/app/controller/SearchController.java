@@ -3,20 +3,26 @@ package app.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 
+import app.Main;
+import app.common.TabName;
 import app.tiktok.search.HashtagSearchResponse;
 import app.tiktok.search.SearchRequest;
 import app.tiktok.search.UserSearchRequest;
 import app.tiktok.search.UserSearchResponse;
+import app.tiktok.user.UserProfile;
 import app.utils.TiktokAPI;
 import app.utils.TiktokAPIImpl;
 import javafx.application.Platform;
@@ -58,6 +64,9 @@ public class SearchController extends VBox implements Initializable{
 	
 	@FXML
 	private JFXTabPane tabSearch;
+	
+	
+	private Map<String, String> tabStatus;
 
 	public SearchController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Search.fxml"));
@@ -72,45 +81,28 @@ public class SearchController extends VBox implements Initializable{
 	}
 
 	@FXML
-	void onKeyPressed(KeyEvent ke) {
+	void onKeyPressed(KeyEvent ke) throws InterruptedException, ExecutionException, Exception {
 
 		if (ke.getCode().equals(KeyCode.ENTER)) {
-			spiner.setVisible(true);
-			Service<Void> service = new Service<Void>() {
-
-				@Override
-				protected Task<Void> createTask() {
-					return new Task<Void>() {
-
-						@Override
-						protected Void call() throws InterruptedException, ExecutionException, Exception {
-							
-							switch (tabSearch.getSelectionModel().getSelectedIndex()) {
-							case 0:
-								searchUsers();
-								break;
-							case 1:
-								searchMusics();
-								break;
-							case 2:
-								searchHashTags();
-								break;
-							default:
-								break;
-							}
-							
-							return null;
-						}
-
-					};
-				}
-			};
-			service.restart();
+			switch (tabSearch.getSelectionModel().getSelectedIndex()) {
+			case 0:
+				searchUsers();
+				break;
+			case 1:
+				searchMusics();
+				break;
+			case 2:
+				searchHashTags();
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		tabStatus = new HashMap<>();
 		tabSearch.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
@@ -120,7 +112,6 @@ public class SearchController extends VBox implements Initializable{
 					try {
 						searchUsers();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -131,7 +122,6 @@ public class SearchController extends VBox implements Initializable{
 					try {
 						searchHashTags();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -147,40 +137,95 @@ public class SearchController extends VBox implements Initializable{
 
 	
 	public void searchUsers() throws InterruptedException, ExecutionException, Exception {
-		userSearchResponse = tiktokAPI.searchUsers(UserSearchRequest.builder().type(1).cursor(0)
-				.count("10").keyword(textSearch.getText()).build()).get();
-		
-		Platform.runLater(() -> {
-			if (!tab_content_nguoidung.getChildren().isEmpty()) {
-				tab_content_nguoidung.getChildren().setAll(new ArrayList<Node>());
-			}
-			userSearchResponse.getUser_list().forEach(user -> {
-				CustomControl custom = new CustomControl(user.getUser_info());
-				tab_content_nguoidung.getChildren().add(custom);
+		Service<Void> service = new Service<Void>() {
+			@Override
+			protected Task<Void> createTask() {
+				// TODO Auto-generated method stub
+				return new Task<Void>() {
+					
+					@Override
+					protected Void call() throws Exception {
 
-			});
-			spiner.setVisible(false);
-		});
+						if(tabStatus.get(TabName.USER.name()) !=null && textSearch.getText().equals(((String)tabStatus.get(TabName.USER.name())))) {
+							
+						} else {
+							tabStatus.put(TabName.USER.name(), textSearch.getText());
+							userSearchResponse = tiktokAPI.searchUsers(UserSearchRequest.builder().type(1).cursor(0)
+									.count("10").keyword(textSearch.getText()).build()).get();
+							Platform.runLater(()->{
+								if (!tab_content_nguoidung.getChildren().isEmpty()) {
+									tab_content_nguoidung.getChildren().setAll(new ArrayList<Node>());
+								}
+								userSearchResponse.getUser_list().forEach(user -> {
+									renderResult(user.getUser_info());
+								});
+							});
+						}
+						return null;
+					}
+				};
+			}
+		};
+		service.restart();
+	}
+	
+	public void renderResult(UserProfile user) {
+		Service<Void> service = new Service<Void>() {
+			@Override
+			protected Task<Void> createTask() {
+				// TODO Auto-generated method stub
+				return new Task<Void>() {
+					
+					@Override
+					protected Void call() throws Exception {
+						CustomControl custom = new CustomControl(user);
+						Platform.runLater(()->{
+							tab_content_nguoidung.getChildren().add(custom);
+						});
+						return null;
+					}
+				};
+			}
+		};
+		service.restart();
 	}
 
 	public void searchHashTags() throws Exception {
-		HashtagSearchResponse response =tiktokAPI.searchHashtags(SearchRequest.builder().count("10").keyword(textSearch.getText()).build());
-		
-		Platform.runLater(() -> {
-			if (!tab_content_hashtag.getChildren().isEmpty()) {
-				tab_content_hashtag.getChildren().setAll(new ArrayList<Node>());
+		Service<Void> service = new Service<Void>() {
+			@Override
+			protected Task<Void> createTask() {
+				// TODO Auto-generated method stub
+				return new Task<Void>() {
+					
+					@Override
+					protected Void call() throws Exception {
+						if(tabStatus.get(TabName.HASHTAG.name()) !=null && textSearch.getText().equals(((String)tabStatus.get(TabName.HASHTAG.name())))) {
+							
+						} else {
+							tabStatus.put(TabName.HASHTAG.name(), textSearch.getText());
+							HashtagSearchResponse response =tiktokAPI.searchHashtags(SearchRequest.builder().count("10").cursor(0).keyword(textSearch.getText()).build());
+							
+							Platform.runLater(() -> {
+								if (!tab_content_hashtag.getChildren().isEmpty()) {
+									tab_content_hashtag.getChildren().setAll(new ArrayList<Node>());
+								}
+								response.getChallenge_list().forEach(hashtag -> {
+									HashTagSearchResultController custom = new HashTagSearchResultController(hashtag.getChallenge_info());
+									tab_content_hashtag.getChildren().add(custom);
+								});
+
+							});
+						}
+						return null;
+					}
+				};
 			}
-			response.getChallenge_list().forEach(hashtag -> {
-				HashTagSearchResultController custom = new HashTagSearchResultController(hashtag.getChallenge_info());
-				tab_content_hashtag.getChildren().add(custom);
-			});
-			spiner.setVisible(false);
-		});
+		};
+		service.restart();
 	}
 	
 	public void searchMusics() throws Exception {
 		HashtagSearchResponse response =tiktokAPI.searchHashtags(SearchRequest.builder().count("10").keyword(textSearch.getText()).build());
-		
 		Platform.runLater(() -> {
 			if (!tab_content_music.getChildren().isEmpty()) {
 				tab_content_music.getChildren().setAll(new ArrayList<Node>());

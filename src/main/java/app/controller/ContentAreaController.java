@@ -20,10 +20,16 @@ import app.tiktok.feed.ListFeedResponse;
 import app.tiktok.post.Post;
 import app.tiktok.type.FeedType;
 import app.tiktok.type.PullType;
+import app.tiktok.user.UserProfile;
+import app.tiktok.user.UserProfileResponse;
 import app.utils.TiktokAPI;
+import app.utils.TiktokAPIImpl;
+import app.utils.BeanUtil;
 import app.utils.StringUtils;
 import app.view.FxmlView;
 import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -31,6 +37,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.BorderPane;
@@ -100,6 +107,10 @@ public class ContentAreaController implements Initializable {
 	 * Initializes the controller class.
 	 */
 	boolean flag = true;
+	
+
+    @FXML
+    private JFXButton btnUser;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -164,13 +175,20 @@ public class ContentAreaController implements Initializable {
     @FXML
     void onReload(ActionEvent event) {
 		videoIndex = 0;
-    	try {
-    		listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get();
-    		setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
-    		} catch (Exception e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
+		Service<Void> service = new Service<Void>() {
+			@Override
+			protected Task<Void> createTask() {
+				return new  Task<Void>() {
+					@Override
+					protected Void call() throws Exception {
+						listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get();
+						setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
+						return null;
+					}
+				};
+			}
+		};
+		service.restart();
     }
     
     
@@ -212,14 +230,70 @@ public class ContentAreaController implements Initializable {
 	}
 
 	public void setViewDataAndPlay(Post post) {
-    	this.btnHeartWebView.setText(StringUtils.convertNumber(post.getStatistics().getDigg_count()));
-    	this.btnCommentWebView.setText(StringUtils.convertNumber(post.getStatistics().getComment_count()));
-    	WebEngine engin = webView.getEngine();
-    	engin.load(post.getVideo().getPlay_addr().getUrl_list().get(0));
+		Service<Void> service = new Service<Void>() {
+			
+			@Override
+			protected Task<Void> createTask() {
+				// TODO Auto-generated method stub
+				return new  Task<Void>() {
+					
+					@Override
+					protected Void call() throws Exception {
+				    	Platform.runLater(()->{
+				    		btnHeartWebView.setText(StringUtils.convertNumber(post.getStatistics().getDigg_count()));
+					    	btnCommentWebView.setText(StringUtils.convertNumber(post.getStatistics().getComment_count()));
+					    	WebEngine engin = webView.getEngine();
+					    	engin.load(post.getVideo().getPlay_addr().getUrl_list().get(0));
+				    	});
+						return null;
+					}
+				};
+			}
+		};
+		
+		service.restart();
+
     }
     
     public void thongbao() {
     	System.out.println("DDaay la thong bao");
+    }
+    
+
+    @FXML
+    void viewUser(ActionEvent event) {
+		Service<Void> service = new Service<Void>() {
+			
+			@Override
+			protected Task<Void> createTask() {
+
+				return new Task<Void>() {
+					UserProfileResponse userprofile = null;
+					
+					@Override
+					protected Void call() throws Exception {
+						Post post = listFeedResponse.getAweme_list().get(videoIndex);
+						try {
+							userprofile = tiktokAPI.getUser(post.getAuthor_user_id());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						ContentAreaController controler = BeanUtil.getBean(ContentAreaController.class);
+						controler.thongbao();
+						StackPane stackPane = controler.getStackPanel();
+						stackPane.getChildren().get(0).setVisible(false);
+						Platform.runLater(()->{
+							if(stackPane.getChildren().size()> 1)
+								stackPane.getChildren().remove(1);
+							stackPane.getChildren().add(new ResutlSearchController(userprofile.getUser()));
+						});
+						return null;
+					}
+				};
+			}
+		};
+		service.restart();
     }
     
     

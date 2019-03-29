@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXSpinner;
 
 import app.tiktok.post.ListPostsRequest;
 import app.tiktok.post.ListPostsResponse;
+import app.tiktok.post.Post;
 import app.tiktok.user.UserProfile;
 import app.utils.BeanUtil;
 import app.utils.MediaUtils;
@@ -179,8 +180,18 @@ public class CustomControl extends HBox{
 					protected Void call()  {
 						spinnerDownloadAll.setVisible(true);
 						ListPostsResponse listPostResponse = null;
+						List<Post> posts = new ArrayList<Post>();
+						int loop_count = userProfile.getAweme_count() / 20;
+						long max_cursor = 0;
+						if(userProfile.getAweme_count() == 0)
+							return null;
 						try {
-							listPostResponse = tiktokAPI.listPosts(ListPostsRequest.builder().count("10").user_id(userProfile.getUid()).retry_type("1").build());
+							for(int i = 0;i<=loop_count;i++) {
+								listPostResponse = tiktokAPI.listPosts(ListPostsRequest.builder().count("20").max_cursor(max_cursor).user_id(userProfile.getUid()).retry_type("1").build());
+								max_cursor = listPostResponse.getMax_cursor();
+								posts.addAll(listPostResponse.getAweme_list());
+							}
+							
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -188,8 +199,8 @@ public class CustomControl extends HBox{
 						System.out.println("Current Thread in test class " + Thread.currentThread().getName());
 						List<CompletableFuture<String>> rs = new ArrayList<>();
 						
-						if(listPostResponse.getAweme_list() != null) {
-							listPostResponse.getAweme_list().forEach(post->{
+						if(posts != null) {
+							posts.forEach(post->{
 								try {
 									rs.add(media.dowload(post.getVideo().getPlay_addr().getUrl_list().get(0),post.getAweme_id()));
 								} catch (InterruptedException e) {

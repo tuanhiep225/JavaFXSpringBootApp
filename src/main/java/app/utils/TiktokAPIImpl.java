@@ -54,7 +54,7 @@ import app.tiktok.user.UserProfileResponse;
 public class TiktokAPIImpl implements TiktokAPI{
 	private static Client client;
 	private final String baseUrl = "https://aweme-eagle.snssdk.com/%1$s";
-	private final String baseUrlNew = "https://aweme.snssdk.com/%1$s";
+	private final String baseUrlNew = "https://api.amemv.com/%1$s";
 	
 	private final String DEVICE_ID = "61209854179";
 	private final String IDD = "55910666513";
@@ -113,8 +113,8 @@ public class TiktokAPIImpl implements TiktokAPI{
 		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
-		  Response response = target.request().header("x-tt-token", "01abe5e241592779dbed405dc78524c9c6e642d868a074472f1ea199fd5d666c38f70c3d3a94c0ab803d17967975cf245d16")
-				  .header("user-agent", "com.ss.android.ugc.trill/466 (Linux; U; Android 7.1.1; vi_VN; CPH1723; Build/N6F26Q; Cronet/58.0.2991.0)")
+		  Response response = target.request().header("x-tt-token", "008bbf11ca784634e402715e3b3e599d5adc53cdb9f0488842de95c0fc8f3369a4bd7acc6df0eb78aa262b61653e09578b14")
+				  .header("user-agent", "com.ss.android.ugc.aweme/370 (Linux; U; Android 7.1.1; vi_VN; CPH1723; Build/N6F26Q; Cronet/58.0.2991.0)")
 				  .header("sdk-version", "1").get();
 		return CompletableFuture.completedFuture(response.readEntity(UserSearchResponse.class));
 	}
@@ -206,12 +206,12 @@ public class TiktokAPIImpl implements TiktokAPI{
 	public HashtagSearchResponse searchHashtags(SearchRequest request) throws Exception {
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/challenge/search/";
-		  String url = String.format(baseUrl, path);
+		  String url = String.format(baseUrlNew, path);
 		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);
-		  Response response = target.request().header("x-tt-token", "01abe5e241592779dbed405dc78524c9c6e642d868a074472f1ea199fd5d666c38f70c3d3a94c0ab803d17967975cf245d16")
-				  .header("user-agent", "com.ss.android.ugc.trill/466 (Linux; U; Android 7.1.1; vi_VN; CPH1723; Build/N6F26Q; Cronet/58.0.2991.0)")
+		  Response response = target.request().header("x-tt-token", "008bbf11ca784634e402715e3b3e599d5adc53cdb9f0488842de95c0fc8f3369a4bd7acc6df0eb78aa262b61653e09578b14")
+				  .header("user-agent", "com.ss.android.ugc.aweme/370 (Linux; U; Android 7.1.1; vi_VN; CPH1723; Build/N6F26Q; Cronet/58.0.2991.0)")
 				  .header("sdk-version", "1").get();
 		return response.readEntity(HashtagSearchResponse.class);
 	}

@@ -22,5 +22,5 @@ import lombok.experimental.SuperBuilder;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ListPostsRequest extends ListRequestParams{
 	String user_id ;
-	Integer max_cursor;
+	Long max_cursor;
 }

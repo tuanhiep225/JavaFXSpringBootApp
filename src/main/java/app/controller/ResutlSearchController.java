@@ -5,6 +5,7 @@ package app.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import com.jfoenix.controls.JFXButton;
 
 import app.tiktok.post.ListPostsRequest;
 import app.tiktok.post.ListPostsResponse;
+import app.tiktok.post.Post;
 import app.tiktok.user.UserProfile;
 import app.utils.StringUtils;
 import app.utils.TiktokAPIImpl;
@@ -40,7 +42,7 @@ import javafx.scene.shape.Rectangle;
  *
  */
 @Controller
-public class ResutlSearchController extends VBox{
+public class ResutlSearchController extends VBox implements Initializable{
 
 	@FXML
 	private Label lblNameP;
@@ -93,25 +95,19 @@ public class ResutlSearchController extends VBox{
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
 		try {
+			this.userProfile = userProfile;
 			fxmlLoader.load();
-			this.lblNameP.setText(userProfile.getNickname());
-			this.imgAvatar.setImage(new Image(userProfile.getAvatar_thumb().getUrl_list().get(0).replace(".webp", "")));
-			this.lblTiktokId.setText(userProfile.getUnique_id());
-			this.lblFavoritedCount.setText(StringUtils.convertNumber(userProfile.getTotal_favorited())  + " Trái tim");
-			this.lblFollowingCount.setText(StringUtils.convertNumber(userProfile.getFollowing_count())+ " Following");
-			this.lblFollowerCount.setText(StringUtils.convertNumber(userProfile.getFollower_count())+ " Người theo dõi");
-			Rectangle clip = new Rectangle(this.imgAvatar.getFitWidth(), this.imgAvatar.getFitHeight());
-			clip.setArcWidth(this.imgAvatar.getFitWidth());
-			clip.setArcHeight(this.imgAvatar.getFitHeight());
-			this.imgAvatar.setClip(clip);
-			tiktokAPI = new TiktokAPIImpl();
-			loadData(userProfile.getUid());
 			
 			scrollPaneResultSearch.setOnScroll(new EventHandler<ScrollEvent>() {
 
 				@Override
 				public void handle(ScrollEvent event) {
-					System.out.println("ok");
+					try {
+						loadData(userProfile.getUid());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				}
 				
@@ -159,30 +155,73 @@ public class ResutlSearchController extends VBox{
 		@Override
 		protected Task<Void> createTask() {
 			return new Task<Void>() {
-
 				@Override
 				protected Void call() throws Exception {
-					Platform.runLater(()->{
-						 try {
-							 System.out.println("okkkkkkkkkkkkkkkkkkk");
-							listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count("10").user_id(userId).retry_type("1").build());
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+					if(listPostResponse.getHas_more() == 0)
+						return null;
+					 try {
+						 System.out.println("Call loadData");
+						listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count("10").max_cursor(listPostResponse.getMax_cursor()).user_id(userId).retry_type("1").build());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("load data thanh cong");
 						 if(null != listPostResponse.getAweme_list()) {
 							 listPostResponse.getAweme_list().forEach(post->{
-									resutlViewVideos.getChildren().add(new ItemVideoController(post));
+								 renderItem(post);
 							 });
 						 }
-					});
 					return null;
 				}
 			};
 		}
 	};
 	service.restart();
+//		
+//		if(listPostResponse.getHas_more() == 0)
+//			return ;
+//		 try {
+//			 System.out.println("Call loadData");
+//			listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count("10").max_cursor(listPostResponse.getMax_cursor()).user_id(userId).retry_type("1").build());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println("load data thanh cong");
+//			 if(null != listPostResponse.getAweme_list()) {
+//				 listPostResponse.getAweme_list().forEach(post->{
+//					 renderItem(post);
+//				 });
+//			 }
+//
+	}
+	
+	public void renderItem(Post post) {
+		Service<Void> service = new Service<Void>() {
+			
+			@Override
+			protected Task<Void> createTask() {
+				return new Task<Void>() {
+					@Override
+					protected Void call() {
+						ItemVideoController item = new ItemVideoController(post);
+						Platform.runLater(()->{
+							System.out.println("init xong item");
+							resutlViewVideos.getChildren().add(item);
+						});
 
+						return null;
+					}
+					@Override
+					protected void succeeded() {
+						System.out.println("render thanh cong");
+						super.succeeded();
+					}
+				};
+			}
+		};
+		service.restart();
 	}
 
 	@FXML
@@ -191,6 +230,31 @@ public class ResutlSearchController extends VBox{
 		StackPane stackPane = (StackPane) scene.lookup("#stackPanel");
 		stackPane.getChildren().remove(1);
 		stackPane.getChildren().get(0).setVisible(true);
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		if(userProfile != null) {
+			this.lblNameP.setText(userProfile.getNickname());
+			this.imgAvatar.setImage(new Image(userProfile.getAvatar_thumb().getUrl_list().get(0).replace(".webp", "")));
+			this.lblTiktokId.setText(userProfile.getUnique_id());
+			this.lblFavoritedCount.setText(StringUtils.convertNumber(userProfile.getTotal_favorited())  + " Trái tim");
+			this.lblFollowingCount.setText(StringUtils.convertNumber(userProfile.getFollowing_count())+ " Following");
+			this.lblFollowerCount.setText(StringUtils.convertNumber(userProfile.getFollower_count())+ " Người theo dõi");
+			Rectangle clip = new Rectangle(this.imgAvatar.getFitWidth(), this.imgAvatar.getFitHeight());
+			clip.setArcWidth(this.imgAvatar.getFitWidth());
+			clip.setArcHeight(this.imgAvatar.getFitHeight());
+			this.imgAvatar.setClip(clip);
+			tiktokAPI = new TiktokAPIImpl();
+			listPostResponse = ListPostsResponse.builder().aweme_list(new ArrayList<Post>()).max_cursor(0L).has_more(1).build();
+			try {
+				loadData(userProfile.getUid());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 

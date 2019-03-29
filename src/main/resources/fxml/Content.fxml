@@ -58,13 +58,22 @@
                   <StackPane prefHeight="681.0" prefWidth="375.0">
                      <children>
       						<WebView fx:id="webView" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" />
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="83.0" StackPane.alignment="BOTTOM_RIGHT">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="83.0" StackPane.alignment="BOTTOM_RIGHT">
                            <StackPane.margin>
                               <Insets bottom="60.0" right="45.0" />
                            </StackPane.margin>
                            <children>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="TOP_CENTER" prefHeight="266.0" prefWidth="83.0">
                                  <children>
+                                    <JFXButton fx:id="btnUser" contentDisplay="TOP" onAction="#viewUser" textFill="WHITE">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" iconName="USER" size="2.0em">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </FontAwesomeIcon>
+                                       </graphic>
+                                    </JFXButton>
                                     <JFXButton fx:id="btnHeartWebView" contentDisplay="TOP" text="12.2k" textFill="WHITE">
                                        <graphic>
                                           <FontAwesomeIcon fill="WHITE" iconName="HEART" size="2.0em">

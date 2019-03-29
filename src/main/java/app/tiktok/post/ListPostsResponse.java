@@ -23,7 +23,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ListPostsResponse {
-	Integer min_cursor;
-	Integer max_cursor;
+	Long min_cursor;
+	Long max_cursor;
+	Integer has_more;
 	List<Post> aweme_list;
 }
