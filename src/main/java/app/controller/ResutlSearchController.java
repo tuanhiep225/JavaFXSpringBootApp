@@ -19,10 +19,13 @@ import app.tiktok.user.UserProfile;
 import app.utils.StringUtils;
 import app.utils.TiktokAPIImpl;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -76,6 +79,8 @@ public class ResutlSearchController extends VBox implements Initializable{
     
     @FXML
     private ScrollPane scrollPaneResultSearch;
+    
+    private boolean finishedScroll = true;
 
 	public ResutlSearchController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ResultSearch.fxml"));
@@ -102,16 +107,30 @@ public class ResutlSearchController extends VBox implements Initializable{
 
 				@Override
 				public void handle(ScrollEvent event) {
-					try {
-						loadData(userProfile.getUid());
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
+			    	if(finishedScroll) {
+			    		finishedScroll = false;
+			    		try {
+							loadData(userProfile.getUid());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			    	}
 				}
 				
 			});
+			
+			scrollPaneResultSearch.vvalueProperty().addListener(new ChangeListener<Number>() {
+		          @Override
+		          public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+		              if (newValue.intValue() == 1) {
+		            	  finishedScroll = true;
+		              } else {
+		            	  finishedScroll = false;
+		              }
+		          }
+		        });
+
 		} catch (Exception exception) {
 			throw new RuntimeException(exception);
 		}
@@ -172,29 +191,19 @@ public class ResutlSearchController extends VBox implements Initializable{
 								 renderItem(post);
 							 });
 						 }
+
 					return null;
+				}
+				@Override
+				protected void succeeded() {
+						System.out.println("done");
+					super.succeeded();
 				}
 			};
 		}
 	};
 	service.restart();
-//		
-//		if(listPostResponse.getHas_more() == 0)
-//			return ;
-//		 try {
-//			 System.out.println("Call loadData");
-//			listPostResponse =	tiktokAPI.listPosts(ListPostsRequest.builder().count("10").max_cursor(listPostResponse.getMax_cursor()).user_id(userId).retry_type("1").build());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		System.out.println("load data thanh cong");
-//			 if(null != listPostResponse.getAweme_list()) {
-//				 listPostResponse.getAweme_list().forEach(post->{
-//					 renderItem(post);
-//				 });
-//			 }
-//
+	
 	}
 	
 	public void renderItem(Post post) {

@@ -32,20 +32,6 @@
 						<FontAwesomeIcon iconName="TH_LIST" size="2em" styleClass="menu-bar-btns-icon" />
 					</graphic>
 				</JFXButton>
-				<HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
-					<children>
-						<JFXButton fx:id="btnMinimize" alignment="CENTER" contentDisplay="CENTER" layoutX="442.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#minimize" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
-							<graphic>
-								<FontAwesomeIcon iconName="MINUS" size="2em" styleClass="menu-bar-btns-icon" />
-							</graphic>
-						</JFXButton>
-						<JFXButton fx:id="btnClose" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#close" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
-							<graphic>
-								<FontAwesomeIcon iconName="TIMES" size="2em" styleClass="menu-bar-btns-icon" />
-							</graphic>
-						</JFXButton>
-					</children>
-				</HBox>
 			</children>
 			<VBox.margin>
 				<Insets bottom="2.0" />

@@ -22,10 +22,9 @@ import app.tiktok.type.FeedType;
 import app.tiktok.type.PullType;
 import app.tiktok.user.UserProfile;
 import app.tiktok.user.UserProfileResponse;
-import app.utils.TiktokAPI;
-import app.utils.TiktokAPIImpl;
 import app.utils.BeanUtil;
 import app.utils.StringUtils;
+import app.utils.TiktokAPI;
 import app.view.FxmlView;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
@@ -65,8 +64,6 @@ public class ContentAreaController implements Initializable {
     @FXML
     private WebView webView;
     
-    @FXML
-    private JFXButton btnClose;
     
     @Autowired
     SpringFXMLLoader spingFXMLLoader; 
@@ -141,15 +138,6 @@ public class ContentAreaController implements Initializable {
 
 	}
 	
-    @FXML
-    void close(ActionEvent event) {
-    	Platform.exit();
-    }
-    
-    @FXML
-    void minimize(ActionEvent event) {
-    	((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true);
-    }
     
     @FXML
     void onPrev(ActionEvent event) {

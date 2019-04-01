@@ -89,9 +89,6 @@ public class SearchController extends VBox implements Initializable{
 				searchUsers();
 				break;
 			case 1:
-				searchMusics();
-				break;
-			case 2:
 				searchHashTags();
 				break;
 			default:
@@ -116,9 +113,6 @@ public class SearchController extends VBox implements Initializable{
 					}
 					break;
 				case 1:
-
-					break;
-				case 2:
 					try {
 						searchHashTags();
 					} catch (Exception e) {
@@ -146,7 +140,7 @@ public class SearchController extends VBox implements Initializable{
 					@Override
 					protected Void call() throws Exception {
 
-						if(tabStatus.get(TabName.USER.name()) !=null && textSearch.getText().equals(((String)tabStatus.get(TabName.USER.name())))) {
+						if(tabStatus.get(TabName.USER.name()) !=null && textSearch.getText().equals(((String)tabStatus.get(TabName.USER.name()))) || textSearch.getText() == null || textSearch.getText().equals("")) {
 							
 						} else {
 							tabStatus.put(TabName.USER.name(), textSearch.getText());
@@ -194,12 +188,10 @@ public class SearchController extends VBox implements Initializable{
 		Service<Void> service = new Service<Void>() {
 			@Override
 			protected Task<Void> createTask() {
-				// TODO Auto-generated method stub
 				return new Task<Void>() {
-					
 					@Override
 					protected Void call() throws Exception {
-						if(tabStatus.get(TabName.HASHTAG.name()) !=null && textSearch.getText().equals(((String)tabStatus.get(TabName.HASHTAG.name())))) {
+						if(tabStatus.get(TabName.HASHTAG.name()) !=null && textSearch.getText().equals(((String)tabStatus.get(TabName.HASHTAG.name())))|| textSearch.getText() == null || textSearch.getText().equals("")) {
 							
 						} else {
 							tabStatus.put(TabName.HASHTAG.name(), textSearch.getText());

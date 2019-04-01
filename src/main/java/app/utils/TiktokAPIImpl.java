@@ -221,7 +221,7 @@ public class TiktokAPIImpl implements TiktokAPI{
 	public ListPostsInHashtagResponse listPostsInHashtag(ListPostsInHashtagRequest request) throws Exception {
 		client = ClientHelperUtils.createClient();
 		  String path = "aweme/v1/challenge/aweme/";
-		  String url = String.format(baseUrl, path);
+		  String url = String.format(baseUrlNew, path);
 		  String param = RequestParamCommon.getBaseRequestParam(RequiredUserDefinedRequestParams.builder().device_id(DEVICE_ID).iid(IDD).openudid(OPENUID).build(), AntiSpamParams.builder().as("a1qwert123").cp("cbfhckdckkde1").build(),request);
 		  url+= param;
 		  WebTarget target = client.target(url);

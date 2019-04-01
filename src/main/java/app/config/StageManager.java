@@ -36,9 +36,9 @@ public class StageManager {
         Scene scene = prepareScene(rootnode);
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
+       // primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+      //  primaryStage.initStyle(StageStyle.UNDECORATED);
         
         try {
             primaryStage.show();

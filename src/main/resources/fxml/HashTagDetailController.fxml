@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root prefHeight="745.0" prefWidth="600.0" type="javafx.scene.layout.VBox" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="100.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="100.0" style="-fx-background-color: #2A2E37;">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="103.0">
+                     <children>
+                        <JFXButton fx:id="tbnBack" onAction="#onBack" prefHeight="48.0" prefWidth="25.0" textFill="#f8f8f8">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="ARROW_LEFT" size="2em" text="" wrappingWidth="26.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </FontAwesomeIcon>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="90.0" prefWidth="90.0">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <children>
+                        <VBox fx:id="vboxTag" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: #3366CC;">
+                           <children>
+                              <Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" text="#" textFill="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="100.0" prefWidth="231.0">
+                           <children>
+                              <Label fx:id="lblNameHashTag" prefHeight="30.0" prefWidth="193.0" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="214.0">
+                                 <children>
+                                    <Label fx:id="lblLuotXem" prefHeight="30.0" prefWidth="73.0" textFill="#fffefe">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label prefHeight="21.0" prefWidth="135.0" text="lượt xem" textFill="WHITE">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ScrollPane fx:id="scrollPaneResultSearch" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="600.0" VBox.vgrow="ALWAYS">
+         <content>
+            <FlowPane fx:id="resutlViewVideos" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</fx:root>

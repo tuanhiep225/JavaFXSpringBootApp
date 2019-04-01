@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ListResponseData extends BaseResponseData{
 	  /** Whether there are more results that can be requested */
-	  Boolean has_more;
+	Integer has_more;
 
 	  /** The total number of results returned - not present in all list requests */
 	  Integer total;

@@ -33,7 +33,7 @@ public enum FxmlView {
 
 		@Override
 		public String getFxmlFile() {
-			return "/fxml/Sidebar.fxml";
+			return "/fxml/Sidebar1.fxml";
 		}
 	},	CONTENT {
 		@Override

@@ -46,23 +46,6 @@
 						</AnchorPane>
 					</content>
 				</Tab>
-				<Tab text="Nhạc nền">
-					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-							<children>
-								<ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="8.0" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
-									<content>
-										<VBox fx:id="tab_content_music" prefHeight="601.0" prefWidth="519.0">
-											<children>
-
-											</children>
-										</VBox>
-									</content>
-								</ScrollPane>
-							</children>
-						</AnchorPane>
-					</content>
-				</Tab>
 				<Tab text="Hashtag">
 					<content>
 						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
