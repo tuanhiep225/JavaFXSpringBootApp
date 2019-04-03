@@ -3,26 +3,24 @@ package app.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import app.config.SpringFXMLLoader;
-import app.config.StageManager;
+import app.utils.LayoutService;
 import app.view.FxmlView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -36,14 +34,8 @@ public class SidebarController implements Initializable {
     private ImageView imgLogo;
     
     @Autowired
-    SpringFXMLLoader spingFXMLLoader;
-
-    private BorderPane border_pane;
+    private SpringFXMLLoader spingFXMLLoader;
     
-    @Lazy
-    @Autowired
-    private StageManager stageManager;
-    @Override
     public void initialize(URL url, ResourceBundle rb) {
 //    	Scene scene = this.getScene();
 //    	Rectangle clip = new Rectangle(this.imgLogo.getFitWidth(), this.imgLogo.getFitHeight());
@@ -55,14 +47,20 @@ public class SidebarController implements Initializable {
     
     
     @FXML
-    void onSetting(MouseEvent mouseEvent) {
-    	if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-			if (mouseEvent.getClickCount() == 2) {
-				 // Parent contentarea = spingFXMLLoader.load(FxmlView.CONTENT.getFxmlFile());
-				stageManager.switchScene(FxmlView.LOGIN);
-			}
-		}
+    void onSetting(MouseEvent event) throws IOException {
+    	switchScene(event, new SettingController());
     	
+    }
+    
+
+    @FXML
+    void onHome(MouseEvent event) throws IOException {
+    	switchScene(event, ((Parent) spingFXMLLoader.load("/fxml/Home.fxml")));
+    }
+    
+    public void switchScene(MouseEvent event, Node node) throws IOException {
+			Scene scene = ((Node) event.getSource()).getScene();
+				LayoutService.switchLayout(scene,node);
     }
     
 }

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<fx:root fx:id="contentSearch" prefHeight="745.0" prefWidth="600.0" type="javafx.scene.layout.VBox" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="contentSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="623.0" prefWidth="512.0" type="javafx.scene.layout.VBox" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="40.0" style="-fx-border-width: 2px; -fx-background-color:  #2A2E37;">
 			<children>
@@ -19,6 +20,9 @@
 					<font>
 						<Font size="13.0" />
 					</font>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
 				</JFXTextField>
 				<JFXSpinner fx:id="spiner" radius="8.0" visible="false" />
 				<FontAwesomeIcon fill="#546f9a" iconName="SEARCH" size="2em" wrappingWidth="29.0" />
@@ -33,9 +37,9 @@
 					<content>
 						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 							<children>
-								<ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="8.0" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+								<ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="8.0" layoutY="7.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="550.0" prefWidth="510.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
 									<content>
-										<VBox fx:id="tab_content_nguoidung" prefHeight="601.0" prefWidth="519.0">
+										<VBox fx:id="tab_content_nguoidung" maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
 											<children>
 
 											</children>
@@ -50,9 +54,9 @@
 					<content>
 						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 							<children>
-								<ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="8.0" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+								<ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="8.0" layoutY="7.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="550.0" prefWidth="510.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
 									<content>
-										<VBox fx:id="tab_content_hashtag" prefHeight="601.0" prefWidth="519.0">
+										<VBox fx:id="tab_content_hashtag" maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
 											<children>
 
 											</children>
@@ -65,6 +69,6 @@
 				</Tab>
 			</tabs>
 		</JFXTabPane>
-		<HBox prefHeight="61.0" styleClass="title-main" />
+		<HBox prefHeight="53.0" styleClass="title-main" />
 	</children>
 </fx:root>

@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="580.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../styles/stylehseet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.SidebarController">
+<VBox fx:id="sidebar" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="700.0" prefWidth="216.0" styleClass="sidebar" stylesheets="@../styles/stylehseet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.SidebarController">
    <children>
       <ImageView fx:id="imgLogo" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" smooth="false">
          <image>
@@ -28,7 +28,7 @@
             <Insets top="10.0" />
          </VBox.margin>
       </ImageView>
-      <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" text="Main" textFill="#b8b1b1">
+      <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefWidth="216.0" text="Main" textFill="#b8b1b1">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
@@ -39,7 +39,7 @@
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </Label>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
+      <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onHome" prefHeight="35.0" prefWidth="216.0" styleClass="sidebar-btn">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -58,7 +58,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="162.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onSetting" prefHeight="35.0" prefWidth="250.0" styleClass="sidebar-btn">
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="162.0" maxHeight="-Infinity" onMouseClicked="#onSetting" prefHeight="35.0" prefWidth="216.0" styleClass="sidebar-btn">
          <padding>
             <Insets left="20.0" />
          </padding>

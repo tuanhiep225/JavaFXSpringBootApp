@@ -3,6 +3,7 @@
  */
 package app.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +11,14 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 
+import app.config.StageManager;
 import app.tiktok.post.ListPostsRequest;
 import app.tiktok.post.ListPostsResponse;
 import app.tiktok.post.Post;
@@ -37,6 +41,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.DirectoryChooser;
 
 /**
  * @author tuanhiep225
@@ -64,6 +69,10 @@ public class CustomControl extends HBox{
     private JFXSpinner spinnerDownloadAll;
 
 	private UserProfile userProfile;
+	
+    @Lazy
+    @Autowired
+    private StageManager stageManager;
 	
 	
 
@@ -151,9 +160,7 @@ public class CustomControl extends HBox{
 					@Override
 					protected Void call() throws Exception {
 						Platform.runLater(()->{
-							ContentAreaController controler = BeanUtil.getBean(ContentAreaController.class);
-							controler.thongbao();
-							Scene scene = self.getScene();
+							HomeController controler = BeanUtil.getBean(HomeController.class);
 							StackPane stackPane = controler.getStackPanel();
 							//StackPane stackPane = (StackPane) scene.lookup("#stackPanel");
 							stackPane.getChildren().get(0).setVisible(false);
@@ -174,52 +181,70 @@ public class CustomControl extends HBox{
 			
 			@Override
 			protected Task<Void> createTask() {
+				stageManager = BeanUtil.getBean(StageManager.class);
+		    	DirectoryChooser directoryChooser = new DirectoryChooser();
+		    	File selectedDirectory = directoryChooser.showDialog(stageManager.getPrimaryStage());
 				return new Task<Void>() {
 					int a = 0;
+					String path = "";
+
 					@Override
 					protected Void call()  {
-						spinnerDownloadAll.setVisible(true);
-						ListPostsResponse listPostResponse = null;
-						List<Post> posts = new ArrayList<Post>();
-						int loop_count = userProfile.getAweme_count() / 20;
-						long max_cursor = 0;
-						if(userProfile.getAweme_count() == 0)
-							return null;
-						try {
-							for(int i = 0;i<=loop_count;i++) {
-								listPostResponse = tiktokAPI.listPosts(ListPostsRequest.builder().count("20").max_cursor(max_cursor).user_id(userProfile.getUid()).retry_type("1").build());
-								max_cursor = listPostResponse.getMax_cursor();
-								posts.addAll(listPostResponse.getAweme_list());
-							}
-							
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						System.out.println("Current Thread in test class " + Thread.currentThread().getName());
-						List<CompletableFuture<String>> rs = new ArrayList<>();
 						
-						if(posts != null) {
-							posts.forEach(post->{
-								try {
-									rs.add(media.dowload(post.getVideo().getPlay_addr().getUrl_list().get(0),post.getAweme_id()));
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+						
+				    	if(selectedDirectory == null){
+				    	     //No Directory selected
+				    	}else{
+				    		path = selectedDirectory.getAbsolutePath();
+				    		path += "\\" + userProfile.getNickname();
+				    		File newFolder = new File(path);
+				    		boolean created =  newFolder.mkdirs();
+				    		
+				    		spinnerDownloadAll.setVisible(true);
+							ListPostsResponse listPostResponse = null;
+							List<Post> posts = new ArrayList<Post>();
+							int loop_count = userProfile.getAweme_count() / 20;
+							long max_cursor = 0;
+							if(userProfile.getAweme_count() == 0)
+								return null;
+							try {
+								for(int i = 0;i<=loop_count;i++) {
+									listPostResponse = tiktokAPI.listPosts(ListPostsRequest.builder().count("20").max_cursor(max_cursor).user_id(userProfile.getUid()).retry_type("1").build());
+									max_cursor = listPostResponse.getMax_cursor();
+									posts.addAll(listPostResponse.getAweme_list());
 								}
-							});
+								
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							System.out.println("Current Thread in test class " + Thread.currentThread().getName());
+							List<CompletableFuture<String>> rs = new ArrayList<>();
 							
-							rs.forEach(x->{
-								try {
-									x.get();
-									++a;
-									updateMessage(String.valueOf(a));
-								} catch (InterruptedException | ExecutionException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							});
-						}
+							if(posts != null) {
+								posts.forEach(post->{
+									try {
+										rs.add(media.dowload(post.getVideo().getPlay_addr().getUrl_list().get(0),path +"\\" +post.getAweme_id()+".mp4"));
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								});
+								
+								rs.forEach(x->{
+									try {
+										x.get();
+										++a;
+										updateMessage(String.valueOf(a));
+									} catch (InterruptedException | ExecutionException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								});
+							}
+				    	     System.out.println();
+				    	}
+						
 						return null;
 					}
 					

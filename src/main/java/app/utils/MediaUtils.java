@@ -20,9 +20,9 @@ import org.springframework.stereotype.Service;
 @Service("media")
 public class MediaUtils {
 	@Async
-	public CompletableFuture<String> dowload(String url, String name) throws InterruptedException {
-		System.out.println(name);
-    	File savedFile = new File("C:/Videos/tiktok/"+ name +".mp4");
+	public CompletableFuture<String> dowload(String url, String path) throws InterruptedException {
+		System.out.println(path);
+    	File savedFile = new File(path);
 
     	 
     	if (savedFile != null) {

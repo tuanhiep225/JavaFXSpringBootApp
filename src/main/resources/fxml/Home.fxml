@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="623.0" prefWidth="862.0" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.HomeController">
+   <children>
+      <VBox maxWidth="1.7976931348623157E308" prefWidth="350.0">
+         <children>
+            <StackPane maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="570.0" prefWidth="375.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <WebView fx:id="webView" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="83.0" StackPane.alignment="CENTER_RIGHT">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="266.0" prefWidth="83.0">
+                           <children>
+                              <JFXButton fx:id="btnUser" contentDisplay="TOP" onAction="#viewUser" textFill="WHITE">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" iconName="USER" size="2.0em">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </FontAwesomeIcon>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btnHeartWebView" contentDisplay="TOP" text="12.2k" textFill="WHITE">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" iconName="HEART" size="2.0em">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </FontAwesomeIcon>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="btnCommentWebView" contentDisplay="TOP" text="634" textFill="WHITE">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" iconName="COMMENT" size="2em" text="">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </FontAwesomeIcon>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="btnDownload" alignment="TOP_CENTER" contentDisplay="TOP" ellipsisString="" lineSpacing="1.0" onAction="#onDownload" prefHeight="31.0" prefWidth="28.0">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" iconName="DOWNLOAD" size="2.0em">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </FontAwesomeIcon>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </JFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                     <StackPane.margin>
+                        <Insets right="20.0" />
+                     </StackPane.margin>
+                  </VBox>
+               </children>
+            </StackPane>
+            <HBox alignment="CENTER" maxHeight="53.0" maxWidth="1.7976931348623157E308" prefHeight="53.0" styleClass="title-main">
+               <children>
+                  <JFXButton fx:id="btnPrev" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onPrev" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" fontSmoothingType="LCD" iconName="ARROW_LEFT" size="2em" text="">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </FontAwesomeIcon>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnReload" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onReload" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" iconName="REFRESH" size="2em" text="" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onNext" prefHeight="50.0" prefWidth="50.0" ripplerFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" iconName="ARROW_RIGHT" size="2em" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <StackPane fx:id="stackPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+   </children>
+</HBox>

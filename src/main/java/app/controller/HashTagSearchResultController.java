@@ -113,8 +113,7 @@ public class HashTagSearchResultController extends HBox implements Initializable
 					@Override
 					protected Void call() throws Exception {
 						Platform.runLater(()->{
-							ContentAreaController controler = BeanUtil.getBean(ContentAreaController.class);
-							controler.thongbao();
+							HomeController controler = BeanUtil.getBean(HomeController.class);
 
 							StackPane stackPane = controler.getStackPanel();
 							stackPane.getChildren().get(0).setVisible(false);

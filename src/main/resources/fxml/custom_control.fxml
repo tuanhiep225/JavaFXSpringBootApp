@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" style="-fx-background-color: #2A2E37;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="70.0" style="-fx-background-color: #2A2E37;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="imageView" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-      <VBox prefHeight="70.0" prefWidth="398.0" style="-fx-background-color: #373d49;" HBox.hgrow="ALWAYS">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="398.0" style="-fx-background-color: #373d49;" HBox.hgrow="ALWAYS">
          <children>
             <Label fx:id="lblName" prefHeight="33.0" prefWidth="352.0" text="Nguyễn Văn Hưng" textFill="WHITE">
                <VBox.margin>
@@ -29,7 +29,7 @@
                </VBox.margin>
             </HBox>
          </children></VBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #373d49;">
+      <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="248.0" style="-fx-background-color: #373d49;">
          <children>
             <JFXSpinner fx:id="spinnerDownloadAll" radius="7.0" visible="false">
                <HBox.margin>
