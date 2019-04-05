@@ -17,7 +17,7 @@
          <children>
             <HBox prefHeight="100.0" style="-fx-background-color: #2A2E37;">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="103.0">
+                  <HBox prefHeight="100.0" prefWidth="69.0">
                      <children>
                         <JFXButton fx:id="tbnBack" onAction="#onBack" prefHeight="48.0" prefWidth="25.0" textFill="#f8f8f8">
                            <graphic>

@@ -8,11 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
-
 import app.config.SpringFXMLLoader;
 import app.config.StageManager;
-import app.utils.BeanUtil;
 import app.utils.LayoutService;
 import app.view.FxmlView;
 import javafx.event.ActionEvent;
