@@ -13,7 +13,7 @@
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="209.0" prefWidth="157.0" style="-fx-background-color: black;" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<ImageView fx:id="imgViewResult" fitHeight="210.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
-			<image/>
+			
 		</ImageView>
 		<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="157.0" StackPane.alignment="BOTTOM_CENTER">
 			<children>

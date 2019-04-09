@@ -82,6 +82,9 @@ public class HomeController implements Initializable{
     
     int videoIndex = 0;
     
+    
+    private Post currentPost;
+    
     @Autowired
     TiktokAPI tiktokAPI;
     
@@ -101,7 +104,7 @@ public class HomeController implements Initializable{
 					
 					@Override
 					protected Void call() throws Exception {
-						Post post = listFeedResponse.getAweme_list().get(videoIndex);
+						Post post = currentPost;
 						try {
 							userprofile = tiktokAPI.getUser(post.getAuthor_user_id());
 						} catch (Exception e) {
@@ -129,13 +132,13 @@ public class HomeController implements Initializable{
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Save file");
     	fileChooser.setInitialDirectory(new File("C:/Videos/tiktok"));
-    	fileChooser.setInitialFileName(listFeedResponse.getAweme_list().get(videoIndex).getAweme_id()+".mp4");
+    	fileChooser.setInitialFileName(currentPost.getAweme_id()+".mp4");
     	File savedFile = fileChooser.showSaveDialog(stageManager.getPrimaryStage());
 
     	 
     	if (savedFile != null) {
     	 
-        	try (BufferedInputStream in = new BufferedInputStream(new URL(listFeedResponse.getAweme_list().get(videoIndex).getVideo().getPlay_addr().getUrl_list().get(0)).openStream());
+        	try (BufferedInputStream in = new BufferedInputStream(new URL(currentPost.getVideo().getPlay_addr().getUrl_list().get(0)).openStream());
       			  FileOutputStream fileOutputStream = new FileOutputStream(savedFile.getPath())) {
       			    byte dataBuffer[] = new byte[1024];
       			    int bytesRead;
@@ -154,9 +157,11 @@ public class HomeController implements Initializable{
     @FXML
     void onPrev(ActionEvent event) {
     	try {
-    		setViewDataAndPlay(listFeedResponse.getAweme_list().get(--videoIndex));
+    		currentPost = listFeedResponse.getAweme_list().get(--videoIndex);
+    		setViewDataAndPlay(currentPost);
 		} catch (Exception e) {
-			setViewDataAndPlay(listFeedResponse.getAweme_list().get(0));
+			currentPost = listFeedResponse.getAweme_list().get(0);
+			setViewDataAndPlay(currentPost);
 		}
     }
 
@@ -170,7 +175,8 @@ public class HomeController implements Initializable{
 					@Override
 					protected Void call() throws Exception {
 						listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get();
-						setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
+						currentPost =listFeedResponse.getAweme_list().get(videoIndex);
+						setViewDataAndPlay(currentPost);
 						return null;
 					}
 				};
@@ -183,10 +189,12 @@ public class HomeController implements Initializable{
     @FXML
     void onNext(ActionEvent event) throws InterruptedException, ExecutionException, Exception {
     	try {
-    		setViewDataAndPlay(listFeedResponse.getAweme_list().get(++videoIndex));
+    		currentPost = listFeedResponse.getAweme_list().get(++videoIndex);
+    		setViewDataAndPlay(currentPost);
 		} catch (Exception e) {
 			listFeedResponse.getAweme_list().addAll(tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get().getAweme_list());
-			setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
+			currentPost = listFeedResponse.getAweme_list().get(videoIndex);
+			setViewDataAndPlay(currentPost);
 		}
 
 
@@ -226,7 +234,8 @@ public class HomeController implements Initializable{
 	//	stageManager = BeanUtil.getBean(StageManager.class);
 		try {
 			listFeedResponse=	tiktokAPI.listFollowingFeed(ListFeedRequest.builder().count("6").is_cold_start(1).max_cursor(0).min_cursor(-1).pull_type(PullType.LoadMore).type(FeedType.ForYou).build()).get();
-			setViewDataAndPlay(listFeedResponse.getAweme_list().get(videoIndex));
+			currentPost = listFeedResponse.getAweme_list().get(videoIndex);
+			setViewDataAndPlay(currentPost);
 			SearchController searchContent = new SearchController();
 			stackPanel.getChildren().add(searchContent);
 			} catch (Exception e) {
@@ -241,6 +250,15 @@ public class HomeController implements Initializable{
 	public StackPane getStackPanel() {
 		return stackPanel;
 	}
+
+	public Post getCurrentPost() {
+		return currentPost;
+	}
+
+	public void setCurrentPost(Post currentPost) {
+		this.currentPost = currentPost;
+	}
+	
 	
 
 }

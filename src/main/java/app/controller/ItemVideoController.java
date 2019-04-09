@@ -15,6 +15,7 @@ import app.tiktok.feed.ListFeedRequest;
 import app.tiktok.post.Post;
 import app.tiktok.type.FeedType;
 import app.tiktok.type.PullType;
+import app.utils.BeanUtil;
 import app.utils.StringUtils;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
@@ -122,6 +123,8 @@ public class ItemVideoController extends StackPane implements Initializable {
 	}
 
 	private void playVideo(Post post) {
+		HomeController homeController = BeanUtil.getBean(HomeController.class);
+		homeController.setCurrentPost(post);
 		Scene scene = this.getScene();
 		WebView webView = (WebView) scene.lookup("#webView");
 		JFXButton btnHeartWebView = (JFXButton) scene.lookup("#btnHeartWebView");
