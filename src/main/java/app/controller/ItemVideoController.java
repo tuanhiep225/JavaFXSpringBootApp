@@ -10,14 +10,14 @@ import java.util.ResourceBundle;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 
-import app.tiktok.feed.ListFeedRequest;
 import app.tiktok.post.Post;
-import app.tiktok.type.FeedType;
-import app.tiktok.type.PullType;
 import app.utils.BeanUtil;
 import app.utils.StringUtils;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -54,6 +54,10 @@ public class ItemVideoController extends StackPane implements Initializable {
 
 	@FXML
 	private JFXButton btnCommentItemVideo;
+	
+    @FXML
+    private JFXCheckBox checkBox;
+
 
 	public ItemVideoController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ItemVideo.fxml"));
@@ -93,6 +97,18 @@ public class ItemVideoController extends StackPane implements Initializable {
 				}
 			}
 		});
+		
+		
+		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		        if(newValue) {
+		        	System.out.println("seleceted");
+		        } else 
+		        	System.out.println("un selected");
+		    }
+		});
+
 
 	}
 

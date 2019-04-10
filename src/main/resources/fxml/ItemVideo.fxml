@@ -49,6 +49,12 @@
             </JFXButton>
 			</children>
 		</HBox>
+      <JFXCheckBox fx:id="checkBox" unCheckedColor="#fc0000" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="10.0" top="10.0" />
+         </StackPane.margin>
+      </JFXCheckBox>
+
 	</children>
 	<FlowPane.margin>
 		<Insets left="10.0" top="10.0" />
