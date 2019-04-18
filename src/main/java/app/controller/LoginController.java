@@ -77,6 +77,7 @@ public class LoginController{
 	//	driver.get("https://facebook.com");
        
         //close Fire fox
+		
      //   driver.close();
     }
 	
