@@ -3,19 +3,29 @@
  */
 package app.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 
+import app.config.StageManager;
 import app.tiktok.post.ListPostsRequest;
 import app.tiktok.post.ListPostsResponse;
 import app.tiktok.post.Post;
 import app.tiktok.user.UserProfile;
+import app.utils.BeanUtil;
+import app.utils.MediaUtils;
 import app.utils.StringUtils;
 import app.utils.TiktokAPIImpl;
 import javafx.application.Platform;
@@ -39,6 +49,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.DirectoryChooser;
 
 /**
  * @author tuanhiep225
@@ -81,6 +92,20 @@ public class ResutlSearchController extends VBox implements Initializable{
     private ScrollPane scrollPaneResultSearch;
     
     private boolean finishedScroll = true;
+    
+    @Lazy
+    @Autowired
+    private StageManager stageManager;
+    
+	private MediaUtils media;
+	
+    @FXML
+    private JFXCheckBox checkAll;
+
+    
+
+    @FXML
+    private JFXButton btnDownload;
 
 	public ResutlSearchController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ResultSearch.fxml"));
@@ -99,6 +124,7 @@ public class ResutlSearchController extends VBox implements Initializable{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ResultSearch.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
+		media = (MediaUtils)BeanUtil.getBean(MediaUtils.class);
 		try {
 			this.userProfile = userProfile;
 			fxmlLoader.load();
@@ -265,6 +291,115 @@ public class ResutlSearchController extends VBox implements Initializable{
 		}
 		
 	}
+	
+    @FXML
+    void onDownload(ActionEvent event) {
+    	List<Post> postsSeleted = new ArrayList<Post>();
+    	for(int i=0; i< resutlViewVideos.getChildren().size(); i++) {
+    		ItemVideoController item =  (ItemVideoController) resutlViewVideos.getChildren().get(i);
+    		if(item.getCheckBox().isSelected())
+    			postsSeleted.add(item.getPost());
+    	}
+
+		Service<Void>background = new Service<Void>() {
+			
+			@Override
+			protected Task<Void> createTask() {
+				stageManager = BeanUtil.getBean(StageManager.class);
+		    	DirectoryChooser directoryChooser = new DirectoryChooser();
+		    	File selectedDirectory = directoryChooser.showDialog(stageManager.getPrimaryStage());
+				return new Task<Void>() {
+					int a = 0;
+					String path = "";
+
+					@Override
+					protected Void call()  {
+						
+						
+				    	if(selectedDirectory == null){
+				    	     //No Directory selected
+				    	}else{
+				    		path = selectedDirectory.getAbsolutePath();
+				    		path += "\\" + userProfile.getNickname();
+				    		File newFolder = new File(path);
+				    		boolean created =  newFolder.mkdirs();
+				    		
+				    		
+
+				    		
+							ListPostsResponse listPostResponse = null;
+							List<Post> posts = new ArrayList<Post>();
+							
+				    		if(postsSeleted.size() > 0) {
+				    			posts.addAll(postsSeleted);
+				    		} else {
+								int loop_count = userProfile.getAweme_count() / 20;
+								long max_cursor = 0;
+								if(userProfile.getAweme_count() == 0)
+									return null;
+								try {
+									for(int i = 0;i<=loop_count;i++) {
+										listPostResponse = tiktokAPI.listPosts(ListPostsRequest.builder().count("20").max_cursor(max_cursor).user_id(userProfile.getUid()).retry_type("1").build());
+										max_cursor = listPostResponse.getMax_cursor();
+										posts.addAll(listPostResponse.getAweme_list());
+									}
+									
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+				    		}
+							
+
+							System.out.println("Current Thread in test class " + Thread.currentThread().getName());
+							List<CompletableFuture<String>> rs = new ArrayList<>();
+							
+							if(posts != null) {
+								posts.forEach(post->{
+									try {
+										rs.add(media.dowload(post.getVideo().getPlay_addr().getUrl_list().get(0),path +"\\" +post.getAweme_id()+".mp4"));
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								});
+								
+								rs.forEach(x->{
+									try {
+										x.get();
+										++a;
+										updateMessage(String.valueOf(a));
+									} catch (InterruptedException | ExecutionException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								});
+							}
+				    	}
+						
+						return null;
+					}
+					
+					
+					@Override
+					protected void succeeded() {
+						super.succeeded();
+					}
+				};
+			}
+		};
+
+		background.restart();
+    }
+    
+    @FXML
+    void onCheck(ActionEvent event) {
+    	Boolean isSelected = ((JFXCheckBox) event.getSource()).isSelected();
+    		for(int i=0; i< resutlViewVideos.getChildren().size(); i++) {
+        		ItemVideoController item =  (ItemVideoController) resutlViewVideos.getChildren().get(i);
+        		item.getCheckBox().selectedProperty().set(isSelected);
+        	}
+    }
 
 
 }

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
@@ -11,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="searchResult" prefHeight="623.0" prefWidth="600.0" type="javafx.scene.layout.VBox" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="searchResult" prefHeight="623.0" prefWidth="600.0" type="javafx.scene.layout.VBox" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="150.0" prefWidth="600.0">
          <children>
@@ -73,6 +81,11 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
+                              <JFXButton fx:id="btnDownload" onAction="#onDownload" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: green;" text="Download" textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </JFXButton>
                               <JFXButton alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="92.0" style="-fx-background-color: red;" text="Theo dõi" textAlignment="RIGHT" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets right="20.0" />
@@ -89,37 +102,46 @@
             </HBox>
             <HBox prefWidth="600.0" style="-fx-background-color: #2A2E37;" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="55.0">
                      <children>
-                        <Label fx:id="lblFavoritedCount" text="28.2k Trái tim" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
+                        <JFXCheckBox fx:id="checkAll" minHeight="-Infinity" minWidth="-Infinity" onAction="#onCheck" prefHeight="17.0" prefWidth="30.0" unCheckedColor="#fc0000" />
                      </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label fx:id="lblFollowingCount" text="149 Following" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label fx:id="lblFollowerCount" text="9.6k Người theo dõi" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
+                        <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="lblFavoritedCount" text="28.2k Trái tim" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="lblFollowingCount" text="149 Following" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="lblFollowerCount" text="9.6k Người theo dõi" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
